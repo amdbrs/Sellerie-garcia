@@ -12,13 +12,18 @@ const LOGO_URL = "https://customer-assets.emergentagent.com/job_9370add9-2aa9-46
 
 // Images - Photos réelles de l'atelier García
 const IMAGES = {
-  hero: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/mhes5mb7_1bb1be00-9a9c-409b-a3de-f9106431bc78.jpeg",
+  hero: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg",
   atelier: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/mhes5mb7_1bb1be00-9a9c-409b-a3de-f9106431bc78.jpeg",
+  atelierLarge: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg",
   mobilier: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m977ytlo_beff6e02-660e-488a-864f-94ccc741d303.jpeg",
   vespa: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg",
   motoSport: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m75tu18a_795c9272-3bc1-4bfe-8fce-d420776783c8.jpeg",
   couture: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/nvf1p6p8_c13492b3-b3ec-4389-82ac-e944a39d0699.jpeg",
-  automobile: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
+  coutureCuirMarron: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/my9739q8_0b43e4fd-f93b-4883-ab81-5128b866ce01.jpeg",
+  siegesOrange: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/9uzitjl3_09cc7c17-d8b6-498b-8d02-72e975df5aa9.jpeg",
+  selleHonda: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/d3e1lvkw_5658f4c1-c989-4b32-ae3a-11724c4689d4.jpeg",
+  artisanTravail: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/16okuyv0_IMG_0322.jpeg",
+  automobile: "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?w=800&q=80",
   moto: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg",
   nautisme: "https://images.pexels.com/photos/271681/pexels-photo-271681.jpeg?w=800"
 };
@@ -105,14 +110,16 @@ const services = [
 
 // Gallery data - Photos réelles
 const galleryItems = [
-  { id: 1, title: "L'Atelier García", desc: "Espace de travail avec véhicules et matériaux", category: "Automobile", image: IMAGES.atelier },
-  { id: 2, title: "Selle moto sport", desc: "Finition cuir sur moto sportive", category: "Moto", image: IMAGES.motoSport },
-  { id: 3, title: "Selle Vespa custom", desc: "Cuir matelassé noir avec surpiqûres", category: "Moto", image: IMAGES.vespa },
-  { id: 4, title: "Couture artisanale", desc: "Machine à coudre sur cuir matelassé", category: "Moto", image: IMAGES.couture },
-  { id: 5, title: "Chaises restaurées", desc: "Assises en simili cuir noir", category: "Mobilier", image: IMAGES.mobilier },
-  { id: 6, title: "Yacht de luxe", desc: "Aménagement intérieur complet", category: "Nautisme", image: IMAGES.nautisme },
-  { id: 7, title: "Détail finition", desc: "Couture précise sur cuir", category: "Automobile", image: IMAGES.couture },
-  { id: 8, title: "Selle vintage", desc: "Restauration selle deux-roues", category: "Moto", image: IMAGES.vespa }
+  { id: 1, title: "L'Atelier García", desc: "Espace de travail avec véhicules et matériaux", category: "Automobile", image: IMAGES.atelierLarge },
+  { id: 2, title: "Sièges bicolores", desc: "Sièges auto orange et noir sur-mesure", category: "Automobile", image: IMAGES.siegesOrange },
+  { id: 3, title: "Selle Honda", desc: "Selle matelassée avec logo brodé", category: "Moto", image: IMAGES.selleHonda },
+  { id: 4, title: "Selle moto sport", desc: "Finition cuir sur moto sportive", category: "Moto", image: IMAGES.motoSport },
+  { id: 5, title: "Selle Vespa", desc: "Cuir matelassé noir avec surpiqûres", category: "Moto", image: IMAGES.vespa },
+  { id: 6, title: "L'artisan au travail", desc: "Couture sur machine professionnelle", category: "Automobile", image: IMAGES.artisanTravail },
+  { id: 7, title: "Couture cuir marron", desc: "Détail de couture sur cuir premium", category: "Mobilier", image: IMAGES.coutureCuirMarron },
+  { id: 8, title: "Chaises restaurées", desc: "Assises en simili cuir noir", category: "Mobilier", image: IMAGES.mobilier },
+  { id: 9, title: "Couture précise", desc: "Machine à coudre sur cuir matelassé", category: "Moto", image: IMAGES.couture },
+  { id: 10, title: "Yacht de luxe", desc: "Aménagement intérieur complet", category: "Nautisme", image: IMAGES.nautisme }
 ];
 
 const materials = ["Cuir pleine fleur", "Alcantara", "Simili cuir technique", "Tissus nautiques", "Mousse haute densité"];
@@ -397,7 +404,7 @@ const EngagementSection = () => {
               className="relative h-64 overflow-hidden"
             >
               <img
-                src={IMAGES.couture}
+                src={IMAGES.artisanTravail}
                 alt="Détail cuir artisanal"
                 className="w-full h-full object-cover"
               />
