@@ -1,0 +1,139 @@
+{
+  "project_name": "García Sellerie Garniture - Modernization",
+  "app_type": "landing_page / portfolio",
+  "design_archetype": "JEWEL & LUXURY mixed with ORGANIC & EARTHY",
+  "emotion": "Premium, Timeless Craftsmanship, Elegant, Distinctive",
+  "theme": "Dark Theme (Primary) with high-contrast Light Theme sections for rhythm",
+  "typography": {
+    "fonts": {
+      "headings": "Cormorant Garamond (or Playfair Display) - Elegant, high-end editorial feel.",
+      "body": "Manrope (or DM Sans) - Clean, highly legible, modern geometry.",
+      "mono_accents": "JetBrains Mono - Used sparingly for overlines, filters, or tiny tech details (e.g., 'EST. 1980', 'FILTRES')."
+    },
+    "rules": {
+      "headings": "Use tracking-tight to tracking-tighter for large headings. Never use Inter or standard Sans for headings. Never default to 'Bold' blindly—use font-light for massive hero text and font-black for smaller assertive titles.",
+      "overlines": "Uppercase, tiny text (text-xs), wide spacing (tracking-[0.2em]).",
+      "body": "Loose line-height (leading-relaxed), prioritize legibility. Keep paragraph widths narrow (max-w-prose)."
+    }
+  },
+  "colors": {
+    "brand_primary": "#1a2f23",
+    "brand_accent": "#c9a227",
+    "palette": {
+      "background_dark": "#1a2f23",
+      "background_light": "#F5F2EB",
+      "text_light": "#F5F2EB",
+      "text_dark": "#0A0E0B",
+      "accent_gold": "#c9a227",
+      "border_dark": "rgba(201, 162, 39, 0.2)",
+      "glass_bg": "rgba(26, 47, 35, 0.6)"
+    },
+    "rules": {
+      "contrast": "Do not use pure #000000. Text must meet APCA contrast standards. Use off-white (#F5F2EB) instead of pure white for a more natural, organic feel.",
+      "accents": "Use the gold (#c9a227) strictly for critical actions (CTAs), borders, or tiny visual indicators. Do not overuse it.",
+      "gradients": "Do NOT use linear or radial color gradients as backgrounds. Rely on solid colors and grain textures to create depth."
+    }
+  },
+  "visual_enhancers": {
+    "texture": "MANDATORY: Implement a fixed, pointer-events-none noise/grain overlay across the entire site (opacity-5 to opacity-10) to give the digital space a tactile, physical 'leather-like' or 'paper-like' feel.",
+    "borders": "Use 1px borders (border-[#c9a227]/20) to separate sections, avoiding soft heavy shadows. This creates a refined, high-end editorial look.",
+    "hover_states": "Hover states on cards/images should feature a slow image scale-up inside an overflow-hidden container, paired with a subtle brightness shift. Do not rely on generic shadow-lg on hover.",
+    "glassmorphism": "For the sticky navigation: Use the 'Crystal' variant. bg-[#1a2f23]/60 with backdrop-blur-xl, and a delicate 1px bottom border border-white/10."
+  },
+  "layouts_and_grids": {
+    "general_spacing": "Generous Spacing Philosophy. Use massive padding between sections (py-24 or py-32) to let the craftsmanship breathe.",
+    "hero": "Asymmetrical layout. Large, expressive typography dominating one side, with a deep, moody cinematic background or an offset image block.",
+    "savoir_faire_bento": "MODE A: 'TETRIS' GRID. Do not use 4 equal columns. Use a 12-column grid. Example: Auto (col-span-12 md:col-span-7 row-span-2), Moto (col-span-12 md:col-span-5 row-span-1), Nautisme (col-span-12 md:col-span-5 row-span-1), Mobilier (col-span-12 md:col-span-7 row-span-1).",
+    "gallery": "Masonry or staggered asymmetrical grid. Never perfectly uniform squares. Leave negative space.",
+    "contact": "Clean, wide form layout, minimalist borders, background matching the section (no floating 'white boxes' in dark sections)."
+  },
+  "motion_and_interactions": {
+    "scrolling": "Use 'lenis' or custom smooth scrolling to make the page scroll feel heavy, deliberate, and premium.",
+    "entrance": "Use 'framer-motion' for staggered fade-ups on text and images as they enter the viewport. Keep easing smooth (e.g., cubic-bezier(0.16, 1, 0.3, 1)).",
+    "micro_interactions": "CTAs should have a subtle background fill or line-drawing effect on hover."
+  },
+  "components_strategy": {
+    "ui_library": "Use customized Shadcn UI components for complex logic (Contact form, Dropdowns/Selects for gallery filters) but strip the default 'SaaS/Vercel' look. Replace rounded borders with sharp (rounded-none or rounded-sm) corners and adapt to the color palette.",
+    "buttons": "Flat, rectangular (rounded-none), sharp. Usually transparent with a 1px solid gold border and gold text, filling with gold and dark text on hover.",
+    "cards": "Cardless design. Rely on images and typography separated by whitespace or thin 1px dividing lines."
+  },
+  "media": {
+    "image_urls": {
+      "hero_or_craftsmanship": [
+        {
+          "url": "https://images.pexels.com/photos/4452603/pexels-photo-4452603.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "category": "Engagement / Craftsmanship",
+          "description": "Close-up of tools and materials on a leather crafting workspace, showing the artisanal touch."
+        }
+      ],
+      "savoir_faire_auto": [
+        {
+          "url": "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxjbGFzc2ljJTIwY2FyJTIwbGVhdGhlciUyMGludGVyaW9yfGVufDB8fHx8MTc3NDQ0NDg2NHww&ixlib=rb-4.1.0&q=85",
+          "category": "Auto",
+          "description": "Classic car brown leather interior with steering wheel."
+        }
+      ],
+      "savoir_faire_moto": [
+        {
+          "url": "https://images.pexels.com/photos/36209786/pexels-photo-36209786.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "category": "Moto",
+          "description": "Detailed shot of a brown leather motorcycle seat."
+        }
+      ],
+      "savoir_faire_nautisme": [
+        {
+          "url": "https://images.pexels.com/photos/271681/pexels-photo-271681.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "category": "Nautisme",
+          "description": "Luxury yacht deck overlooking the sea."
+        }
+      ],
+      "savoir_faire_mobilier": [
+        {
+          "url": "https://images.pexels.com/photos/3328224/pexels-photo-3328224.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "category": "Mobilier",
+          "description": "Elegant red leather vintage chair."
+        }
+      ],
+      "gallery_fillers": [
+        {
+          "url": "https://images.unsplash.com/photo-1765519313320-22b0865e9c32?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxsZWF0aGVyJTIwY3JhZnRzbWFuc2hpcCUyMGFydGlzYW58ZW58MHx8fHwxNzc0NDQ0ODY0fDA&ixlib=rb-4.1.0&q=85",
+          "category": "Details",
+          "description": "Macro shot of stitching on leather pouch."
+        }
+      ]
+    },
+    "rules": "Ensure all images use object-cover. Desaturate slightly or apply a very subtle #1a2f23 overlay (opacity-10 to 20) to ensure images blend with the brand's dark, moody, and premium aesthetic."
+  },
+  "accessibility": {
+    "focus_states": "Must be visible, use the gold accent (#c9a227) for focus rings. offset-2px.",
+    "aria_labels": "All gallery filters and form inputs must have proper ARIA attributes.",
+    "motion": "Respect prefers-reduced-motion for all Framer Motion and Lenis scroll effects."
+  },
+  "instructions_to_main_agent": [
+    "Install 'framer-motion' for staggered entrance animations and scroll reveals.",
+    "Install 'lucide-react' for crisp, elegant icons (use strokes, not filled).",
+    "In tailwind.config.js, explicitly configure colors: 'brand-dark': '#1a2f23', 'brand-gold': '#c9a227', 'brand-sand': '#F5F2EB'.",
+    "In your CSS, add a subtle noise background class. Apply it to the body or a fixed overlay div to prevent the background from feeling like flat digital colors.",
+    "Use <section> blocks with distinct background shifts. e.g., Hero (Dark), Savoir-Faire (Dark), Engagement (Light/Sand to create tension), Gallery (Dark).",
+    "Do NOT center align everything. The text for 'Savoir-Faire' and 'Engagement' should be left-aligned and strictly typographic.",
+    "Build the gallery with a filtering system using standard React state, preserving the previous capabilities.",
+    "The logo must be preserved. Create a space for it in the nav: A circular element (w-12 h-12) representing the 'dark green circle with sewing machine'.",
+    "Create JS files for components and pages (as requested, the project uses .js).",
+    "Remember to add 'data-testid' to all interactive elements."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) where appropriate.",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles, in this case sharp corners with interaction animations & color relevant to the app style.",
+    "NEVER use AI assistant Emoji characters for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "Components MUST use named exports, Pages MUST use default exports."
+  ]
+}
