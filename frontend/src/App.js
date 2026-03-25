@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // Logo García
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_9370add9-2aa9-46bc-b598-8f17b97f9224/artifacts/sukuekzz_IMG_0328.png";
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/8bv8bi5b_IMG_0328.png";
 
 // Images - Photos réelles de l'atelier García
 const IMAGES = {
