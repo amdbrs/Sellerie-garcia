@@ -73,9 +73,9 @@ const services = [
     id: "automobile",
     title: "Automobile",
     description: "Redonnez vie à l'intérieur de votre véhicule avec un travail sur-mesure.",
-    image: IMAGES.atelier,
+    image: "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?w=800&q=80",
     icon: Car,
-    features: ["Réfection de sièges", "Ciels de toit", "Volants gainés", "Panneaux de portes"]
+    features: ["Réfection de sièges", "Ciels de toit", "Panneaux de portes"]
   },
   {
     id: "moto",
