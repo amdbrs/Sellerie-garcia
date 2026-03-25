@@ -22,19 +22,20 @@ Recréer le site web García Sellerie Garniture basé sur le template craft-upho
 - Navigation fluide avec smooth scroll
 
 ## What's Been Implemented (Jan 2026)
-- [x] Hero section avec statistiques et animations Framer Motion
-- [x] Section Services avec Bento Grid asymétrique
-- [x] Section Engagement avec thème clair (contraste)
-- [x] Galerie avec filtres par catégorie et animations
+- [x] Hero section avec badge vert menthe et image de fond
+- [x] Section Services avec cards et icônes en coin (Car, Bike, Ship, Sofa)
+- [x] Section Engagement avec icônes (Scissors, Layers, User)
+- [x] Galerie avec filtres par catégorie
 - [x] Formulaire de contact avec soumission backend
-- [x] Navigation responsive avec blur glassmorphism
+- [x] Navigation responsive
 - [x] Footer avec logo
-- [x] API /api/contact pour demandes de devis
-- [x] **MODERNISATION** : Typographie Cormorant Garamond + JetBrains Mono
-- [x] **MODERNISATION** : Texture noise premium
-- [x] **MODERNISATION** : Animations Framer Motion (fade-up, stagger)
-- [x] **MODERNISATION** : Boutons sharp avec hover doré
-- [x] **MODERNISATION** : Design éditorial haut de gamme
+- [x] API /api/contact avec pagination
+- [x] **DESIGN V2** : Thème sombre (#0a0f0c)
+- [x] **DESIGN V2** : Accent vert menthe (#c5d4c0)
+- [x] **DESIGN V2** : Badges avec fond vert menthe
+- [x] **DESIGN V2** : IconBox carrés avec icônes Lucide
+- [x] **DESIGN V2** : Cards services avec icônes en coin rotatif
+- [x] **DESIGN V2** : Animations Framer Motion
 
 ## Backlog
 - P1: Intégration Google Maps pour localisation atelier
