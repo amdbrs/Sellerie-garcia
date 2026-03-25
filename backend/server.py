@@ -72,9 +72,9 @@ async def create_contact_request(input: ContactRequestCreate):
     return contact_obj
 
 @api_router.get("/contact", response_model=List[ContactRequest])
-async def get_contact_requests():
-    # Exclude MongoDB's _id field from the query results
-    contacts = await db.contact_requests.find({}, {"_id": 0}).to_list(1000)
+async def get_contact_requests(limit: int = 100, skip: int = 0):
+    # Exclude MongoDB's _id field from the query results with pagination
+    contacts = await db.contact_requests.find({}, {"_id": 0}).skip(skip).limit(min(limit, 100)).to_list(length=min(limit, 100))
     
     # Convert ISO string timestamps back to datetime objects
     for contact in contacts:
@@ -95,8 +95,9 @@ async def create_status_check(input: StatusCheckCreate):
     return status_obj
 
 @api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+async def get_status_checks(limit: int = 100, skip: int = 0):
+    # Pagination with max limit of 100
+    status_checks = await db.status_checks.find({}, {"_id": 0}).skip(skip).limit(min(limit, 100)).to_list(length=min(limit, 100))
     
     for check in status_checks:
         if isinstance(check['timestamp'], str):
