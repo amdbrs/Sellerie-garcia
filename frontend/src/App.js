@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
-import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check } from "lucide-react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, ArrowUpRight } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -9,22 +10,43 @@ const API = `${BACKEND_URL}/api`;
 // Logo García
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_9370add9-2aa9-46bc-b598-8f17b97f9224/artifacts/sukuekzz_IMG_0328.png";
 
-// Images
+// Images from design guidelines
 const IMAGES = {
-  automobile: "https://images.unsplash.com/photo-1760688965950-e8dcca426544?w=800&q=80",
-  moto: "https://images.pexels.com/photos/5781796/pexels-photo-5781796.jpeg?w=800",
-  nautisme: "https://images.pexels.com/photos/8356420/pexels-photo-8356420.jpeg?w=800",
-  mobilier: "https://images.unsplash.com/photo-1763979628017-ea650631b0be?w=800&q=80",
-  couture: "https://images.unsplash.com/photo-1762019108554-51759e47148a?w=800&q=80",
-  atelier: "https://images.pexels.com/photos/4452603/pexels-photo-4452603.jpeg?w=800",
-  autoInterior: "https://images.unsplash.com/photo-1767277974735-a6e70cd71d2f?w=800&q=80",
-  autoClassic: "https://images.pexels.com/photos/4480526/pexels-photo-4480526.jpeg?w=800",
-  motoCustom: "https://images.pexels.com/photos/5781796/pexels-photo-5781796.jpeg?w=800",
-  motoFinition: "https://images.unsplash.com/photo-1710017847858-9f15090b5c0a?w=800&q=80",
-  bateau: "https://images.pexels.com/photos/28905724/pexels-photo-28905724.jpeg?w=800",
-  yacht: "https://images.pexels.com/photos/8356420/pexels-photo-8356420.jpeg?w=800",
-  fauteuil: "https://images.unsplash.com/photo-1763979628017-ea650631b0be?w=800&q=80",
-  canape: "https://images.pexels.com/photos/8232377/pexels-photo-8232377.jpeg?w=800"
+  craftsmanship: "https://images.pexels.com/photos/4452603/pexels-photo-4452603.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  automobile: "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxjbGFzc2ljJTIwY2FyJTIwbGVhdGhlciUyMGludGVyaW9yfGVufDB8fHx8MTc3NDQ0NDg2NHww&ixlib=rb-4.1.0&q=85",
+  moto: "https://images.pexels.com/photos/36209786/pexels-photo-36209786.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  nautisme: "https://images.pexels.com/photos/271681/pexels-photo-271681.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  mobilier: "https://images.pexels.com/photos/3328224/pexels-photo-3328224.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  leatherDetail: "https://images.unsplash.com/photo-1765519313320-22b0865e9c32?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxsZWF0aGVyJTIwY3JhZnRzbWFuc2hpcCUyMGFydGlzYW58ZW58MHx8fHwxNzc0NDQ0ODY0fDA&ixlib=rb-4.1.0&q=85"
+};
+
+// Animation variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+};
+
+// Animated Section Wrapper
+const AnimatedSection = ({ children, className = "" }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={staggerContainer}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
 };
 
 // Services data
@@ -34,41 +56,45 @@ const services = [
     title: "Automobile",
     description: "Redonnez vie à l'intérieur de votre véhicule avec un travail sur-mesure.",
     image: IMAGES.automobile,
-    features: ["Réfection de sièges", "Ciels de toit", "Volants gainés", "Panneaux de portes"]
+    features: ["Réfection de sièges", "Ciels de toit", "Volants gainés", "Panneaux de portes"],
+    span: "md:col-span-7 md:row-span-2"
   },
   {
     id: "moto",
     title: "Moto",
     description: "Confort et style personnalisé pour vos deux-roues.",
     image: IMAGES.moto,
-    features: ["Selles confort", "Pose de gel", "Personnalisation", "Réparations"]
+    features: ["Selles confort", "Pose de gel", "Personnalisation", "Réparations"],
+    span: "md:col-span-5 md:row-span-1"
   },
   {
     id: "nautisme",
     title: "Nautisme",
     description: "Protégez et embellissez votre bateau avec des finitions marines.",
     image: IMAGES.nautisme,
-    features: ["Bains de soleil", "Selleries marines", "Tauds de protection", "Coussins sur-mesure"]
+    features: ["Bains de soleil", "Selleries marines", "Tauds de protection", "Coussins sur-mesure"],
+    span: "md:col-span-5 md:row-span-1"
   },
   {
     id: "mobilier",
     title: "Mobilier",
     description: "Restauration et création de mobilier avec des matériaux nobles.",
     image: IMAGES.mobilier,
-    features: ["Fauteuils", "Canapés", "Tables médicales", "Équipements sportifs"]
+    features: ["Fauteuils", "Canapés", "Tables médicales", "Équipements sportifs"],
+    span: "md:col-span-7 md:row-span-1"
   }
 ];
 
 // Gallery data
 const galleryItems = [
-  { id: 1, title: "Intérieur automobile premium", desc: "Réfection complète avec cuir matelassé", category: "Automobile", image: IMAGES.autoInterior },
-  { id: 2, title: "Restauration classique", desc: "Sièges en cuir rouge vintage", category: "Automobile", image: IMAGES.autoClassic },
-  { id: 3, title: "Selle moto custom", desc: "Cuir matelassé noir avec surpiqûres", category: "Moto", image: IMAGES.motoCustom },
-  { id: 4, title: "Finition premium", desc: "Détails de couture professionnelle", category: "Moto", image: IMAGES.motoFinition },
-  { id: 5, title: "Sièges bateau", desc: "Sellerie marine résistante", category: "Nautisme", image: IMAGES.bateau },
-  { id: 6, title: "Yacht de luxe", desc: "Aménagement intérieur complet", category: "Nautisme", image: IMAGES.yacht },
-  { id: 7, title: "Fauteuil capitonné", desc: "Cuir rouge bordeaux capitonné", category: "Mobilier", image: IMAGES.fauteuil },
-  { id: 8, title: "Canapé vintage", desc: "Restauration de canapé en cuir", category: "Mobilier", image: IMAGES.canape }
+  { id: 1, title: "Intérieur automobile premium", desc: "Réfection complète avec cuir matelassé", category: "Automobile", image: IMAGES.automobile },
+  { id: 2, title: "Restauration classique", desc: "Sièges en cuir rouge vintage", category: "Automobile", image: "https://images.pexels.com/photos/4480526/pexels-photo-4480526.jpeg?w=800" },
+  { id: 3, title: "Selle moto custom", desc: "Cuir matelassé noir avec surpiqûres", category: "Moto", image: IMAGES.moto },
+  { id: 4, title: "Finition premium", desc: "Détails de couture professionnelle", category: "Moto", image: IMAGES.leatherDetail },
+  { id: 5, title: "Sièges bateau", desc: "Sellerie marine résistante", category: "Nautisme", image: "https://images.pexels.com/photos/28905724/pexels-photo-28905724.jpeg?w=800" },
+  { id: 6, title: "Yacht de luxe", desc: "Aménagement intérieur complet", category: "Nautisme", image: IMAGES.nautisme },
+  { id: 7, title: "Fauteuil capitonné", desc: "Cuir rouge bordeaux capitonné", category: "Mobilier", image: IMAGES.mobilier },
+  { id: 8, title: "Canapé vintage", desc: "Restauration de canapé en cuir", category: "Mobilier", image: "https://images.pexels.com/photos/8232377/pexels-photo-8232377.jpeg?w=800" }
 ];
 
 const materials = ["Cuir pleine fleur", "Alcantara", "Simili cuir technique", "Tissus nautiques", "Mousse haute densité"];
@@ -79,9 +105,7 @@ const Navigation = ({ activeSection, scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -95,41 +119,54 @@ const Navigation = ({ activeSection, scrollToSection }) => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-[#1a2f23]/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`} data-testid="main-navigation">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-brand-dark/60 backdrop-blur-xl border-b border-white/10" : "bg-transparent"}`}
+      data-testid="main-navigation"
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollToSection("accueil")} data-testid="logo-link">
-            <img src={LOGO_URL} alt="García Sellerie" className="h-14 w-14 rounded-full" />
+          <motion.div 
+            className="flex items-center gap-4 cursor-pointer group" 
+            onClick={() => scrollToSection("accueil")} 
+            data-testid="logo-link"
+            whileHover={{ scale: 1.02 }}
+          >
+            <img src={LOGO_URL} alt="García Sellerie" className="h-12 w-12 rounded-full ring-2 ring-brand-gold/20 group-hover:ring-brand-gold/50 transition-all duration-300" />
             <div className="hidden sm:block">
-              <p className="text-white font-semibold text-lg">García</p>
-              <p className="text-[#c9a227] text-xs">Sellerie Garniture</p>
+              <p className="text-brand-sand font-heading text-lg tracking-tight">García</p>
+              <p className="text-brand-gold text-xs tracking-[0.2em] uppercase font-mono">Sellerie Garniture</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`text-sm font-medium transition-colors ${activeSection === item.id ? "text-[#c9a227]" : "text-white/80 hover:text-white"}`}
+                className={`text-sm tracking-wide transition-colors duration-300 ${activeSection === item.id ? "text-brand-gold" : "text-brand-sand/70 hover:text-brand-sand"}`}
                 data-testid={`nav-${item.id}`}
               >
                 {item.label}
               </button>
             ))}
-            <button
+            <motion.button
               onClick={() => scrollToSection("contact")}
-              className="bg-[#c9a227] text-[#1a2f23] px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-[#d4af37] transition-all"
+              className="border border-brand-gold text-brand-gold px-6 py-2.5 text-sm tracking-wide hover:bg-brand-gold hover:text-brand-dark transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               data-testid="nav-devis-btn"
             >
               Devis gratuit
-            </button>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white p-2"
+            className="md:hidden text-brand-sand p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             data-testid="mobile-menu-toggle"
           >
@@ -138,176 +175,248 @@ const Navigation = ({ activeSection, scrollToSection }) => {
         </div>
 
         {/* Mobile Nav */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-[#1a2f23]/95 backdrop-blur-md py-4 px-4 rounded-b-2xl" data-testid="mobile-menu">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => { scrollToSection(item.id); setIsMenuOpen(false); }}
-                className="block w-full text-left py-3 text-white/80 hover:text-[#c9a227] transition-colors"
-                data-testid={`mobile-nav-${item.id}`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden"
+              data-testid="mobile-menu"
+            >
+              <div className="py-4 border-t border-brand-gold/20">
+                {navItems.map((item, i) => (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    onClick={() => { scrollToSection(item.id); setIsMenuOpen(false); }}
+                    className="block w-full text-left py-3 text-brand-sand/80 hover:text-brand-gold transition-colors"
+                    data-testid={`mobile-nav-${item.id}`}
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
 // Hero Section
 const HeroSection = ({ scrollToSection }) => (
-  <section id="accueil" className="relative min-h-screen flex items-center justify-center overflow-hidden" data-testid="hero-section">
-    <div className="absolute inset-0 bg-gradient-to-br from-[#1a2f23] via-[#243b2d] to-[#1a2f23]" />
-    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a227' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
+  <section id="accueil" className="relative min-h-screen flex items-center overflow-hidden bg-brand-dark" data-testid="hero-section">
+    {/* Background Image */}
+    <div className="absolute inset-0">
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-30"
+        style={{ backgroundImage: `url(${IMAGES.craftsmanship})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-brand-dark/70" />
+    </div>
     
-    <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-      <p className="text-[#c9a227] text-sm font-medium tracking-widest uppercase mb-6 animate-fade-in">Artisan Sellier Garnisseur</p>
-      
-      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-        Donnez une seconde vie à vos<br />
-        <span className="text-[#c9a227]">intérieurs</span> et <span className="text-[#c9a227]">équipements</span>
-      </h1>
-      
-      <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-        Un seul artisan, de la découpe à la couture finale. Un travail d'orfèvre pour des réalisations uniques en cuir, Alcantara et matériaux premium.
-      </p>
-      
-      <button
-        onClick={() => scrollToSection("contact")}
-        className="group bg-[#c9a227] text-[#1a2f23] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#d4af37] transition-all inline-flex items-center gap-2"
-        data-testid="hero-cta-btn"
-      >
-        Demander un devis gratuit
-        <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-      </button>
-      
-      {/* Stats */}
-      <div className="flex justify-center gap-12 md:gap-20 mt-16">
-        {[
-          { value: "1", label: "Artisan dédié" },
-          { value: "4", label: "Domaines d'expertise" },
-          { value: "100%", label: "Sur-mesure" }
-        ].map((stat, i) => (
-          <div key={i} className="text-center" data-testid={`stat-${i}`}>
-            <p className="text-4xl md:text-5xl font-bold text-[#c9a227]">{stat.value}</p>
-            <p className="text-white/60 text-sm mt-1">{stat.label}</p>
+    <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <AnimatedSection>
+          <motion.p variants={fadeUp} className="text-brand-gold text-xs font-mono tracking-[0.3em] uppercase mb-8">
+            Artisan Sellier Garnisseur
+          </motion.p>
+          
+          <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl lg:text-7xl font-heading font-light text-brand-sand leading-[1.1] mb-8">
+            Donnez une<br />
+            seconde vie à vos<br />
+            <span className="text-brand-gold italic">intérieurs</span>
+          </motion.h1>
+          
+          <motion.p variants={fadeUp} className="text-brand-sand/60 text-lg max-w-md leading-relaxed mb-12">
+            Un seul artisan, de la découpe à la couture finale. Un travail d'orfèvre pour des réalisations uniques en cuir, Alcantara et matériaux premium.
+          </motion.p>
+          
+          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
+            <motion.button
+              onClick={() => scrollToSection("contact")}
+              className="group border border-brand-gold bg-brand-gold text-brand-dark px-8 py-4 text-sm tracking-wide hover:bg-transparent hover:text-brand-gold transition-all duration-300 inline-flex items-center justify-center gap-3"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              data-testid="hero-cta-btn"
+            >
+              Demander un devis
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+            </motion.button>
+            
+            <motion.button
+              onClick={() => scrollToSection("savoir-faire")}
+              className="border border-brand-sand/30 text-brand-sand px-8 py-4 text-sm tracking-wide hover:border-brand-sand/60 transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              data-testid="hero-discover-btn"
+            >
+              Découvrir
+            </motion.button>
+          </motion.div>
+        </AnimatedSection>
+
+        {/* Stats */}
+        <AnimatedSection className="hidden lg:block">
+          <div className="grid grid-cols-2 gap-8">
+            {[
+              { value: "1", label: "Artisan dédié", sublabel: "De A à Z" },
+              { value: "4", label: "Domaines", sublabel: "D'expertise" },
+              { value: "100%", label: "Sur-mesure", sublabel: "Personnalisé" },
+              { value: "15+", label: "Années", sublabel: "D'expérience" }
+            ].map((stat, i) => (
+              <motion.div 
+                key={i} 
+                variants={fadeUp}
+                className="border-l border-brand-gold/30 pl-6"
+                data-testid={`stat-${i}`}
+              >
+                <p className="text-5xl font-heading font-light text-brand-gold mb-2">{stat.value}</p>
+                <p className="text-brand-sand text-sm tracking-wide">{stat.label}</p>
+                <p className="text-brand-sand/50 text-xs">{stat.sublabel}</p>
+              </motion.div>
+            ))}
           </div>
-        ))}
+        </AnimatedSection>
       </div>
     </div>
     
     {/* Scroll indicator */}
-    <button
+    <motion.button
       onClick={() => scrollToSection("savoir-faire")}
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 hover:text-[#c9a227] transition-colors animate-bounce"
+      className="absolute bottom-12 left-1/2 -translate-x-1/2 text-brand-sand/40 hover:text-brand-gold transition-colors"
+      animate={{ y: [0, 10, 0] }}
+      transition={{ repeat: Infinity, duration: 2 }}
       data-testid="scroll-indicator"
     >
       <ChevronDown size={32} />
-    </button>
+    </motion.button>
   </section>
 );
 
-// Services Section
+// Services Section - Bento Grid
 const ServicesSection = () => (
-  <section id="savoir-faire" className="py-24 bg-[#0f1a14]" data-testid="services-section">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-16">
-        <p className="text-[#c9a227] text-sm font-medium tracking-widest uppercase mb-4">Mon Savoir-Faire</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Quatre domaines d'excellence</h2>
-        <p className="text-white/60 max-w-2xl mx-auto">
-          De l'automobile au mobilier, chaque projet bénéficie d'un savoir-faire artisanal et de matériaux premium pour un résultat durable et unique.
-        </p>
-      </div>
+  <section id="savoir-faire" className="py-32 bg-brand-dark" data-testid="services-section">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <AnimatedSection>
+        <motion.p variants={fadeUp} className="text-brand-gold text-xs font-mono tracking-[0.3em] uppercase mb-4">
+          Mon Savoir-Faire
+        </motion.p>
+        <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-heading font-light text-brand-sand mb-6 max-w-2xl">
+          Quatre domaines d'excellence
+        </motion.h2>
+        <motion.p variants={fadeUp} className="text-brand-sand/60 max-w-xl mb-16 leading-relaxed">
+          De l'automobile au mobilier, chaque projet bénéficie d'un savoir-faire artisanal et de matériaux premium.
+        </motion.p>
+      </AnimatedSection>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {services.map((service) => (
-          <div
+      {/* Bento Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+        {services.map((service, index) => (
+          <motion.div
             key={service.id}
-            className="group bg-[#1a2f23] rounded-2xl overflow-hidden hover:transform hover:-translate-y-2 transition-all duration-300"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className={`group relative overflow-hidden ${service.span} ${index === 0 ? 'min-h-[500px]' : 'min-h-[240px]'}`}
             data-testid={`service-card-${service.id}`}
           >
-            <div className="relative h-48 overflow-hidden">
+            <div className="absolute inset-0">
               <img
                 src={service.image}
                 alt={service.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2f23] to-transparent" />
+              <div className="absolute inset-0 bg-brand-dark/60 group-hover:bg-brand-dark/40 transition-colors duration-500" />
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-              <p className="text-white/60 text-sm mb-4">{service.description}</p>
-              <ul className="space-y-2">
+            
+            <div className="relative h-full p-8 flex flex-col justify-end">
+              <p className="text-brand-gold text-xs font-mono tracking-[0.2em] uppercase mb-2">{service.id}</p>
+              <h3 className="text-2xl font-heading text-brand-sand mb-3">{service.title}</h3>
+              <p className="text-brand-sand/60 text-sm mb-4 max-w-xs">{service.description}</p>
+              
+              <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 {service.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-white/70">
-                    <Check size={14} className="text-[#c9a227]" />
+                  <span key={i} className="text-xs text-brand-sand/80 border border-brand-gold/30 px-3 py-1">
                     {feature}
-                  </li>
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
   </section>
 );
 
-// Engagement Section
+// Engagement Section - Light theme for contrast
 const EngagementSection = () => (
-  <section id="engagement" className="py-24 bg-[#1a2f23]" data-testid="engagement-section">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <p className="text-[#c9a227] text-sm font-medium tracking-widest uppercase mb-4">L'Engagement Artisan</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Un travail d'orfèvre, de A à Z</h2>
-          <p className="text-white/70 mb-6 leading-relaxed">
-            De la découpe à la couture finale, chaque projet passe uniquement entre mes mains. Cette approche garantit une attention méticuleuse aux détails et une cohérence parfaite tout au long du processus.
-          </p>
-          <p className="text-white/70 mb-8 leading-relaxed">
-            Seul à l'atelier, je prends le temps nécessaire pour comprendre vos besoins, sélectionner les meilleurs matériaux et réaliser un travail sur-mesure qui dépassera vos attentes. Chaque pièce est unique, durable et pensée pour vous.
-          </p>
+  <section id="engagement" className="py-32 bg-brand-sand" data-testid="engagement-section">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <AnimatedSection>
+          <motion.p variants={fadeUp} className="text-brand-gold text-xs font-mono tracking-[0.3em] uppercase mb-4">
+            L'Engagement Artisan
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-heading font-light text-brand-dark mb-8 leading-tight">
+            Un travail d'orfèvre,<br />de A à Z
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-brand-dark/70 mb-6 leading-relaxed">
+            De la découpe à la couture finale, chaque projet passe uniquement entre mes mains. Cette approche garantit une attention méticuleuse aux détails et une cohérence parfaite.
+          </motion.p>
+          <motion.p variants={fadeUp} className="text-brand-dark/70 mb-10 leading-relaxed">
+            Seul à l'atelier, je prends le temps nécessaire pour comprendre vos besoins, sélectionner les meilleurs matériaux et réaliser un travail sur-mesure qui dépassera vos attentes.
+          </motion.p>
 
           {/* Materials */}
-          <div className="mb-8">
-            <h4 className="text-white font-semibold mb-4">Matériaux Utilisés</h4>
+          <motion.div variants={fadeUp} className="mb-10">
+            <p className="text-brand-dark font-medium text-sm tracking-wide mb-4">MATÉRIAUX UTILISÉS</p>
             <div className="flex flex-wrap gap-2">
               {materials.map((material, i) => (
-                <span key={i} className="bg-[#243b2d] text-white/80 px-4 py-2 rounded-full text-sm">
+                <span key={i} className="text-sm text-brand-dark/70 border border-brand-dark/20 px-4 py-2 hover:border-brand-gold hover:text-brand-gold transition-colors cursor-default">
                   {material}
                 </span>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Features */}
-          <div className="grid sm:grid-cols-3 gap-4">
+          <motion.div variants={fadeUp} className="grid sm:grid-cols-3 gap-6">
             {[
-              { title: "Travail artisanal", desc: "Chaque pièce est travaillée à la main avec précision et passion" },
-              { title: "Matériaux premium", desc: "Cuir pleine fleur, Alcantara et tissus techniques de haute qualité" },
-              { title: "Interlocuteur unique", desc: "Un seul artisan de A à Z pour garantir la cohérence du projet" }
+              { title: "Artisanal", desc: "Travaillé à la main avec précision" },
+              { title: "Premium", desc: "Matériaux de haute qualité" },
+              { title: "Unique", desc: "Un seul interlocuteur de A à Z" }
             ].map((feature, i) => (
-              <div key={i} className="bg-[#243b2d] p-4 rounded-xl" data-testid={`feature-${i}`}>
-                <h4 className="text-white font-semibold text-sm mb-2">{feature.title}</h4>
-                <p className="text-white/60 text-xs">{feature.desc}</p>
+              <div key={i} className="border-t-2 border-brand-gold pt-4" data-testid={`feature-${i}`}>
+                <h4 className="text-brand-dark font-medium mb-2">{feature.title}</h4>
+                <p className="text-brand-dark/60 text-sm">{feature.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </AnimatedSection>
 
-        <div className="relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative"
+        >
           <img
-            src={IMAGES.couture}
+            src={IMAGES.craftsmanship}
             alt="Détail couture artisanale"
-            className="rounded-2xl w-full h-[500px] object-cover"
+            className="w-full h-[600px] object-cover"
           />
-          <div className="absolute bottom-4 left-4 right-4 bg-[#1a2f23]/90 backdrop-blur-sm p-4 rounded-xl">
-            <p className="text-white/80 text-sm">Détail de finition : chaque couture compte</p>
+          <div className="absolute bottom-0 left-0 right-0 bg-brand-dark/90 backdrop-blur-sm p-6">
+            <p className="text-brand-sand/80 text-sm italic">Chaque couture raconte une histoire de précision et de passion</p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   </section>
@@ -321,52 +430,76 @@ const GallerySection = () => {
   const filteredItems = filter === "Tous" ? galleryItems : galleryItems.filter(item => item.category === filter);
 
   return (
-    <section id="galerie" className="py-24 bg-[#0f1a14]" data-testid="gallery-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-[#c9a227] text-sm font-medium tracking-widest uppercase mb-4">Portfolio</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Galerie de réalisations</h2>
-          <p className="text-white/60 max-w-2xl mx-auto">
+    <section id="galerie" className="py-32 bg-brand-dark" data-testid="gallery-section">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <AnimatedSection>
+          <motion.p variants={fadeUp} className="text-brand-gold text-xs font-mono tracking-[0.3em] uppercase mb-4">
+            Portfolio
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-heading font-light text-brand-sand mb-6">
+            Galerie de réalisations
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-brand-sand/60 max-w-xl mb-12">
             Découvrez quelques exemples de projets réalisés avec passion et précision
-          </p>
-        </div>
+          </motion.p>
+        </AnimatedSection>
 
         {/* Filter buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap gap-3 mb-12">
           {categories.map((cat) => (
-            <button
+            <motion.button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === cat ? "bg-[#c9a227] text-[#1a2f23]" : "bg-[#1a2f23] text-white/70 hover:bg-[#243b2d]"}`}
+              className={`px-6 py-2 text-sm tracking-wide transition-all duration-300 ${filter === cat ? "bg-brand-gold text-brand-dark" : "border border-brand-sand/30 text-brand-sand/70 hover:border-brand-gold hover:text-brand-gold"}`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               data-testid={`filter-${cat.toLowerCase()}`}
             >
               {cat}
-            </button>
+            </motion.button>
           ))}
         </div>
 
-        {/* Gallery grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer"
-              data-testid={`gallery-item-${item.id}`}
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2f23] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <span className="text-[#c9a227] text-xs font-medium">{item.category}</span>
-                <h4 className="text-white font-semibold">{item.title}</h4>
-                <p className="text-white/60 text-sm">{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Masonry-style Gallery grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredItems.map((item, index) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4 }}
+                className={`group relative overflow-hidden cursor-pointer ${index === 0 || index === 5 ? 'sm:row-span-2' : ''}`}
+                style={{ minHeight: index === 0 || index === 5 ? '500px' : '240px' }}
+                data-testid={`gallery-item-${item.id}`}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-brand-gold text-xs font-mono tracking-wider mb-2">{item.category}</p>
+                  <h4 className="text-brand-sand font-heading text-lg mb-1">{item.title}</h4>
+                  <p className="text-brand-sand/60 text-sm">{item.desc}</p>
+                </div>
+                
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-brand-gold p-2">
+                    <ArrowUpRight size={16} className="text-brand-dark" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
@@ -400,145 +533,175 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#1a2f23]" data-testid="contact-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-[#c9a227] text-sm font-medium tracking-widest uppercase mb-4">Contact</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Contactez-moi pour un devis gratuit</h2>
-          <p className="text-white/60 max-w-2xl mx-auto">
-            Que ce soit pour une rénovation, une création sur-mesure ou un simple conseil, je suis à votre écoute pour donner vie à votre projet.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12">
+    <section id="contact" className="py-32 bg-brand-dark border-t border-brand-gold/20" data-testid="contact-section">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-20">
           {/* Contact Info */}
-          <div>
-            <div className="space-y-6 mb-8">
-              <a href="tel:0643320178" className="flex items-center gap-4 bg-[#243b2d] p-4 rounded-xl hover:bg-[#2d4a38] transition-colors" data-testid="contact-phone">
-                <div className="bg-[#c9a227] p-3 rounded-full">
-                  <Phone size={20} className="text-[#1a2f23]" />
+          <AnimatedSection>
+            <motion.p variants={fadeUp} className="text-brand-gold text-xs font-mono tracking-[0.3em] uppercase mb-4">
+              Contact
+            </motion.p>
+            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-heading font-light text-brand-sand mb-8">
+              Parlons de votre projet
+            </motion.h2>
+            <motion.p variants={fadeUp} className="text-brand-sand/60 mb-12 max-w-md leading-relaxed">
+              Que ce soit pour une rénovation, une création sur-mesure ou un simple conseil, je suis à votre écoute.
+            </motion.p>
+            
+            <motion.div variants={fadeUp} className="space-y-6 mb-12">
+              <a href="tel:0643320178" className="group flex items-center gap-6 border border-brand-gold/20 p-6 hover:border-brand-gold/50 transition-colors" data-testid="contact-phone">
+                <div className="border border-brand-gold p-4 group-hover:bg-brand-gold transition-colors">
+                  <Phone size={20} className="text-brand-gold group-hover:text-brand-dark transition-colors" />
                 </div>
                 <div>
-                  <p className="text-white/60 text-sm">Téléphone</p>
-                  <p className="text-white font-semibold">06 43 32 01 78</p>
+                  <p className="text-brand-sand/50 text-xs font-mono tracking-wider mb-1">TÉLÉPHONE</p>
+                  <p className="text-brand-sand text-lg">06 43 32 01 78</p>
                 </div>
               </a>
               
-              <a href="mailto:selleriegarniture.garcia@gmail.com" className="flex items-center gap-4 bg-[#243b2d] p-4 rounded-xl hover:bg-[#2d4a38] transition-colors" data-testid="contact-email">
-                <div className="bg-[#c9a227] p-3 rounded-full">
-                  <Mail size={20} className="text-[#1a2f23]" />
+              <a href="mailto:selleriegarniture.garcia@gmail.com" className="group flex items-center gap-6 border border-brand-gold/20 p-6 hover:border-brand-gold/50 transition-colors" data-testid="contact-email">
+                <div className="border border-brand-gold p-4 group-hover:bg-brand-gold transition-colors">
+                  <Mail size={20} className="text-brand-gold group-hover:text-brand-dark transition-colors" />
                 </div>
                 <div>
-                  <p className="text-white/60 text-sm">Email</p>
-                  <p className="text-white font-semibold">selleriegarniture.garcia@gmail.com</p>
+                  <p className="text-brand-sand/50 text-xs font-mono tracking-wider mb-1">EMAIL</p>
+                  <p className="text-brand-sand">selleriegarniture.garcia@gmail.com</p>
                 </div>
               </a>
-            </div>
+            </motion.div>
 
-            <img
-              src={IMAGES.atelier}
+            <motion.img
+              variants={fadeUp}
+              src={IMAGES.craftsmanship}
               alt="Atelier Garcia Sellerie"
-              className="w-full h-64 object-cover rounded-2xl"
+              className="w-full h-64 object-cover opacity-60"
             />
-          </div>
+          </AnimatedSection>
 
           {/* Contact Form */}
-          <div className="bg-[#243b2d] p-8 rounded-2xl" data-testid="contact-form-container">
-            <h3 className="text-white text-xl font-semibold mb-6">Demande de devis</h3>
-            
-            {submitSuccess ? (
-              <div className="text-center py-12" data-testid="form-success">
-                <div className="bg-[#c9a227] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check size={32} className="text-[#1a2f23]" />
-                </div>
-                <p className="text-white text-lg font-semibold mb-2">Demande envoyée !</p>
-                <p className="text-white/60">Je vous recontacte très rapidement.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4" data-testid="contact-form">
-                <div>
-                  <label className="text-white/80 text-sm mb-2 block">Nom complet *</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-[#1a2f23] text-white px-4 py-3 rounded-xl border border-white/10 focus:border-[#c9a227] focus:outline-none transition-colors"
-                    data-testid="input-name"
-                  />
-                </div>
-                
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-white/80 text-sm mb-2 block">Email *</label>
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#1a2f23] text-white px-4 py-3 rounded-xl border border-white/10 focus:border-[#c9a227] focus:outline-none transition-colors"
-                      data-testid="input-email"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-white/80 text-sm mb-2 block">Téléphone *</label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-[#1a2f23] text-white px-4 py-3 rounded-xl border border-white/10 focus:border-[#c9a227] focus:outline-none transition-colors"
-                      data-testid="input-phone"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="text-white/80 text-sm mb-2 block">Type de projet *</label>
-                  <select
-                    required
-                    value={formData.projectType}
-                    onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="w-full bg-[#1a2f23] text-white px-4 py-3 rounded-xl border border-white/10 focus:border-[#c9a227] focus:outline-none transition-colors"
-                    data-testid="select-project-type"
-                  >
-                    <option value="">Sélectionnez un type de projet</option>
-                    <option value="Automobile">Automobile</option>
-                    <option value="Moto">Moto</option>
-                    <option value="Nautisme">Nautisme</option>
-                    <option value="Mobilier">Mobilier</option>
-                    <option value="Autre">Autre</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="text-white/80 text-sm mb-2 block">Message *</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-[#1a2f23] text-white px-4 py-3 rounded-xl border border-white/10 focus:border-[#c9a227] focus:outline-none transition-colors resize-none"
-                    data-testid="input-message"
-                  />
-                </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-[#c9a227] text-[#1a2f23] py-4 rounded-xl font-semibold hover:bg-[#d4af37] transition-colors disabled:opacity-50"
-                  data-testid="submit-btn"
+          <AnimatedSection>
+            <motion.div variants={fadeUp} className="border border-brand-gold/20 p-8 lg:p-12" data-testid="contact-form-container">
+              <h3 className="text-brand-sand font-heading text-2xl mb-8">Demande de devis</h3>
+              
+              {submitSuccess ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-16"
+                  data-testid="form-success"
                 >
-                  {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
-                </button>
-              </form>
-            )}
-          </div>
+                  <div className="border border-brand-gold w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                    <Check size={32} className="text-brand-gold" />
+                  </div>
+                  <p className="text-brand-sand text-xl font-heading mb-2">Demande envoyée</p>
+                  <p className="text-brand-sand/60">Je vous recontacte très rapidement.</p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form">
+                  <div>
+                    <label className="text-brand-sand/70 text-xs font-mono tracking-wider mb-3 block">NOM COMPLET *</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full bg-transparent text-brand-sand px-0 py-3 border-b border-brand-gold/30 focus:border-brand-gold focus:outline-none transition-colors"
+                      data-testid="input-name"
+                    />
+                  </div>
+                  
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div>
+                      <label className="text-brand-sand/70 text-xs font-mono tracking-wider mb-3 block">EMAIL *</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full bg-transparent text-brand-sand px-0 py-3 border-b border-brand-gold/30 focus:border-brand-gold focus:outline-none transition-colors"
+                        data-testid="input-email"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-brand-sand/70 text-xs font-mono tracking-wider mb-3 block">TÉLÉPHONE *</label>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full bg-transparent text-brand-sand px-0 py-3 border-b border-brand-gold/30 focus:border-brand-gold focus:outline-none transition-colors"
+                        data-testid="input-phone"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-brand-sand/70 text-xs font-mono tracking-wider mb-3 block">TYPE DE PROJET *</label>
+                    <select
+                      required
+                      value={formData.projectType}
+                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                      className="w-full bg-transparent text-brand-sand px-0 py-3 border-b border-brand-gold/30 focus:border-brand-gold focus:outline-none transition-colors cursor-pointer"
+                      data-testid="select-project-type"
+                    >
+                      <option value="" className="bg-brand-dark">Sélectionnez un type</option>
+                      <option value="Automobile" className="bg-brand-dark">Automobile</option>
+                      <option value="Moto" className="bg-brand-dark">Moto</option>
+                      <option value="Nautisme" className="bg-brand-dark">Nautisme</option>
+                      <option value="Mobilier" className="bg-brand-dark">Mobilier</option>
+                      <option value="Autre" className="bg-brand-dark">Autre</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="text-brand-sand/70 text-xs font-mono tracking-wider mb-3 block">MESSAGE *</label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full bg-transparent text-brand-sand px-0 py-3 border-b border-brand-gold/30 focus:border-brand-gold focus:outline-none transition-colors resize-none"
+                      data-testid="input-message"
+                    />
+                  </div>
+                  
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full border border-brand-gold bg-brand-gold text-brand-dark py-4 text-sm tracking-wide hover:bg-transparent hover:text-brand-gold transition-all duration-300 disabled:opacity-50 mt-4"
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    data-testid="submit-btn"
+                  >
+                    {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+                  </motion.button>
+                </form>
+              )}
+            </motion.div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
   );
 };
+
+// Footer
+const Footer = () => (
+  <footer className="bg-brand-dark py-12 border-t border-brand-gold/10" data-testid="footer">
+    <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-4">
+          <img src={LOGO_URL} alt="García Sellerie" className="h-10 w-10 rounded-full" />
+          <div>
+            <p className="text-brand-sand font-heading">García</p>
+            <p className="text-brand-gold text-xs font-mono tracking-wider">Sellerie Garniture</p>
+          </div>
+        </div>
+        <p className="text-brand-sand/40 text-sm">© 2024 García Sellerie Garniture. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+);
 
 // Main App Component
 function App() {
@@ -574,21 +737,17 @@ function App() {
   }, []);
 
   return (
-    <div className="App bg-[#0f1a14] min-h-screen" data-testid="app-container">
+    <div className="App bg-brand-dark min-h-screen" data-testid="app-container">
+      {/* Noise Overlay */}
+      <div className="noise-overlay" />
+      
       <Navigation activeSection={activeSection} scrollToSection={scrollToSection} />
       <HeroSection scrollToSection={scrollToSection} />
       <ServicesSection />
       <EngagementSection />
       <GallerySection />
       <ContactSection />
-      
-      {/* Footer */}
-      <footer className="bg-[#0f1a14] py-8 border-t border-white/10" data-testid="footer">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <img src={LOGO_URL} alt="García Sellerie" className="h-12 w-12 rounded-full mx-auto mb-4" />
-          <p className="text-white/60 text-sm">© 2024 García Sellerie Garniture. Tous droits réservés.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
