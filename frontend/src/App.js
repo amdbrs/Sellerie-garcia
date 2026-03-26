@@ -110,20 +110,20 @@ const services = [
 
 // Gallery data - Photos réelles
 const galleryItems = [
-  { id: 1, title: "L'Atelier García", desc: "Espace de travail avec véhicules et matériaux", category: "Automobile", image: IMAGES.atelierLarge },
-  { id: 2, title: "Sièges bicolores", desc: "Sièges auto orange et noir sur-mesure", category: "Automobile", image: IMAGES.siegesOrange },
-  { id: 3, title: "Intérieur voiture collection", desc: "Sièges cuir noir avec passepoil", category: "Automobile", image: IMAGES.automobile },
+  { id: 1, title: "Sièges bicolores", desc: "Sièges auto orange et noir sur-mesure", category: "Automobile", image: IMAGES.siegesOrange },
+  { id: 2, title: "Intérieur voiture collection", desc: "Sièges cuir noir avec passepoil", category: "Automobile", image: IMAGES.automobile },
+  { id: 3, title: "Sièges sport", desc: "Tissu technique surpiqûres blanches", category: "Automobile", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xnpdtgc2_85df2709-64ae-4e70-a5a7-6651dd092afa.jpeg" },
   { id: 4, title: "Selle Triumph Thruxton", desc: "Selle matelassée avec logo García", category: "Moto", image: IMAGES.moto },
   { id: 5, title: "Selle café racer", desc: "Finition grise matelassée", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xr1tbd6y_3f71fae7-8f3a-4a33-9482-245c7abd23fb.jpeg" },
   { id: 6, title: "Selle atelier", desc: "Finition noire surpiqûres blanches", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/dm4i0cr9_5a197c46-ec92-43e6-aabc-b85b190f3a72.jpeg" },
   { id: 7, title: "Selle XSR 700", desc: "Matelassé losange passepoil rouge", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/5ue4fayp_640e8d16-28ac-4af9-b659-33ec2da70ed7.jpeg" },
   { id: 8, title: "Selle Honda XL", desc: "Logo brodé personnalisé", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/pelx1f4o_117fd8e4-1117-4a50-9743-8978aeb3002a.jpeg" },
-  { id: 9, title: "Armature selle", desc: "Structure ressorts avant garnissage", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/fmfm2hei_66126ab0-5d22-4830-9d7b-fc36198c8925.jpeg" },
-  { id: 10, title: "Selle Vespa", desc: "Cuir matelassé noir", category: "Moto", image: IMAGES.vespa },
-  { id: 11, title: "Selle Honda", desc: "Selle matelassée logo brodé", category: "Moto", image: IMAGES.selleHonda },
-  { id: 12, title: "Chaises restaurées", desc: "Assises en simili cuir noir", category: "Mobilier", image: IMAGES.mobilier },
-  { id: 13, title: "Couture cuir marron", desc: "Détail de couture sur cuir premium", category: "Mobilier", image: IMAGES.coutureCuirMarron },
-  { id: 14, title: "Yacht", desc: "Aménagement intérieur bateau", category: "Nautisme", image: IMAGES.nautisme }
+  { id: 9, title: "Selle cuir noir", desc: "Finition lisse sur établi", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qwclrlqu_b1972168-c7c8-47f8-b965-9e74101116eb.jpeg" },
+  { id: 10, title: "Armature selle", desc: "Structure ressorts avant garnissage", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/fmfm2hei_66126ab0-5d22-4830-9d7b-fc36198c8925.jpeg" },
+  { id: 11, title: "Canapé cuir capitonné", desc: "Cuir gris design moderne", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/cjun3hwq_331946c3-7fd4-4fa8-84b2-afabf46544c3.jpeg" },
+  { id: 12, title: "Canapé modulaire", desc: "Tissu gris chiné", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/o2cna4ll_dfdd06b4-2bb1-46ba-9d1d-5b8f0240bb2a.jpeg" },
+  { id: 13, title: "Fauteuil club", desc: "Simili cuir noir", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/965aw8nd_c9fc077a-e22f-4f7f-96d3-4f5ec677f912.jpeg" },
+  { id: 14, title: "Chaises restaurées", desc: "Assises en simili cuir noir", category: "Mobilier", image: IMAGES.mobilier }
 ];
 
 const materials = [];
