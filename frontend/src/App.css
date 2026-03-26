@@ -84,6 +84,11 @@ select option {
   color: var(--light);
 }
 
+/* Logo styling - remove black background */
+img[alt="García Sellerie"] {
+  background: transparent !important;
+}
+
 /* Color utilities */
 .bg-dark { background-color: var(--dark); }
 .bg-dark-lighter { background-color: var(--dark-lighter); }

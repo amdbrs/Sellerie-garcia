@@ -191,7 +191,7 @@ const Navigation = ({ activeSection, scrollToSection }) => {
             data-testid="logo-link"
             whileHover={{ scale: 1.05 }}
           >
-            <img src={LOGO_URL} alt="García Sellerie" className="h-14 w-14" />
+            <img src={LOGO_URL} alt="García Sellerie" className="h-14 w-14 rounded-full object-cover" />
           </motion.div>
 
           {/* Desktop Nav */}
@@ -398,9 +398,19 @@ const EngagementSection = () => {
             {/* Sourcing Info */}
             <motion.div variants={fadeUp} className="bg-dark-lighter border border-mint/20 p-6 mb-6">
               <p className="text-mint font-semibold text-sm tracking-wider uppercase mb-3">Fournisseurs Certifiés</p>
-              <p className="text-light/70 text-sm leading-relaxed">
+              <p className="text-light/70 text-sm leading-relaxed mb-6">
                 Je sélectionne exclusivement des tissus et cuirs provenant de <span className="text-light">fournisseurs professionnels français et européens</span>, répondant aux normes spécifiques de chaque secteur.
               </p>
+              <button
+                onClick={() => {
+                  const element = document.getElementById("contact");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-mint text-dark px-6 py-3 font-semibold text-sm hover:bg-mint/90 transition-all duration-300 inline-flex items-center gap-2"
+              >
+                Demander un devis gratuit
+                <ArrowRight size={16} />
+              </button>
             </motion.div>
           </AnimatedSection>
 
@@ -704,7 +714,7 @@ const Footer = () => (
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <img src={LOGO_URL} alt="García Sellerie" className="h-10 w-10" />
+          <img src={LOGO_URL} alt="García Sellerie" className="h-10 w-10 rounded-full object-cover" />
           <p className="text-light font-semibold">García Sellerie Garniture</p>
         </div>
         <p className="text-light/40 text-sm">© 2024 García Sellerie Garniture. Tous droits réservés.</p>
