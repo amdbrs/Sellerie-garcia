@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, Car, Bike, Ship, Sofa, Scissors, Layers, User } from "lucide-react";
+import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, Car, Bike, Ship, Sofa, Scissors, Layers, User, Heart, Building2, Dumbbell, Plane, Anchor } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -25,7 +25,7 @@ const IMAGES = {
   artisanTravail: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/16okuyv0_IMG_0322.jpeg",
   automobile: "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?w=800&q=80",
   moto: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg",
-  nautisme: "https://images.pexels.com/photos/271681/pexels-photo-271681.jpeg?w=800"
+  nautisme: "https://images.unsplash.com/photo-1753295687822-b7785d55c24e?w=800&q=80"
 };
 
 // Animation variants
@@ -123,6 +123,35 @@ const galleryItems = [
 ];
 
 const materials = ["Cuir pleine fleur", "Alcantara", "Simili cuir technique", "Tissus nautiques", "Mousse haute densité"];
+
+// Secteurs et normes
+const sectorsNorms = [
+  {
+    icon: Heart,
+    title: "Médical & Bien-être",
+    description: "Tissus antibactériens, antifongiques et résistants aux produits de désinfection"
+  },
+  {
+    icon: Building2,
+    title: "Espaces Publics",
+    description: "Normes non-feu M1/M2 pour cinémas, hôtels et restaurants"
+  },
+  {
+    icon: Dumbbell,
+    title: "Sport & Fitness",
+    description: "Haute résistance à l'abrasion et à la transpiration"
+  },
+  {
+    icon: Plane,
+    title: "Transport & Mobilité",
+    description: "Homologation automobile, aviation et ferroviaire"
+  },
+  {
+    icon: Anchor,
+    title: "Nautisme",
+    description: "Traitements anti-UV et résistance à la salinité"
+  }
+];
 
 // Navigation Component
 const Navigation = ({ activeSection, scrollToSection }) => {
@@ -363,7 +392,7 @@ const EngagementSection = () => {
             </motion.p>
 
             {/* Materials */}
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="mb-8">
               <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">Matériaux Utilisés</p>
               <div className="flex flex-wrap gap-2">
                 {materials.map((material, i) => (
@@ -373,42 +402,60 @@ const EngagementSection = () => {
                 ))}
               </div>
             </motion.div>
+
+            {/* Sourcing Info */}
+            <motion.div variants={fadeUp} className="bg-dark-lighter border border-mint/20 p-6 mb-6">
+              <p className="text-mint font-semibold text-sm tracking-wider uppercase mb-3">Fournisseurs Certifiés</p>
+              <p className="text-light/70 text-sm leading-relaxed">
+                Je sélectionne exclusivement des tissus et cuirs provenant de <span className="text-light">fournisseurs professionnels français et européens</span>, répondant aux normes spécifiques de chaque secteur.
+              </p>
+            </motion.div>
           </AnimatedSection>
 
-          {/* Right Content - Features */}
-          <div className="space-y-6">
-            {features.map((feature, index) => (
+          {/* Right Content - Sectors & Norms */}
+          <div className="space-y-4">
+            <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">Secteurs & Normes</p>
+            {sectorsNorms.map((sector, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="flex gap-6 p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors"
-                data-testid={`feature-${index}`}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex gap-4 p-4 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors"
+                data-testid={`sector-${index}`}
               >
-                <IconBox icon={feature.icon} />
+                <div className="w-10 h-10 bg-mint/20 flex items-center justify-center flex-shrink-0">
+                  <sector.icon size={20} className="text-mint" strokeWidth={1.5} />
+                </div>
                 <div>
-                  <h4 className="text-xl font-bold text-light mb-2">{feature.title}</h4>
-                  <p className="text-light/60">{feature.description}</p>
+                  <h4 className="text-light font-semibold text-sm mb-1">{sector.title}</h4>
+                  <p className="text-light/60 text-xs">{sector.description}</p>
                 </div>
               </motion.div>
             ))}
 
-            {/* Image */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="relative h-64 overflow-hidden"
-            >
-              <img
-                src={IMAGES.artisanTravail}
-                alt="Détail cuir artisanal"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
+            {/* Features */}
+            <div className="pt-4 space-y-4">
+              <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">Mon Engagement</p>
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: (index + 5) * 0.1 }}
+                  className="flex gap-4 p-4 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors"
+                  data-testid={`feature-${index}`}
+                >
+                  <IconBox icon={feature.icon} />
+                  <div>
+                    <h4 className="text-light font-semibold text-sm mb-1">{feature.title}</h4>
+                    <p className="text-light/60 text-xs">{feature.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
