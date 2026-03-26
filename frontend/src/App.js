@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, createContext, useContext } from "react";
 import "@/App.css";
 import axios from "axios";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, Car, Bike, Ship, Sofa, Scissors, Layers, User, Heart, Building2, Dumbbell, Plane, Anchor } from "lucide-react";
+import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, Car, Bike, Ship, Sofa, Scissors, Layers, User, Heart, Building2, Dumbbell, Plane, Anchor, MapPin, Instagram, Globe } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -22,11 +22,176 @@ const IMAGES = {
   coutureCuirMarron: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/my9739q8_0b43e4fd-f93b-4883-ab81-5128b866ce01.jpeg",
   siegesOrange: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/9uzitjl3_09cc7c17-d8b6-498b-8d02-72e975df5aa9.jpeg",
   selleHonda: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/d3e1lvkw_5658f4c1-c989-4b32-ae3a-11724c4689d4.jpeg",
-  artisanTravail: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/16okuyv0_IMG_0322.jpeg",
+  artisanTravail: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/lt2nrwqs_IMG_0322.jpeg",
   automobile: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xyya385f_cb4b354d-ebe0-4806-8046-d301dc377a9b.jpeg",
   moto: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/0l64azwa_IMG_0325.jpeg",
   nautisme: "https://images.unsplash.com/photo-1753295687822-b7785d55c24e?w=800&q=80"
 };
+
+// Translations
+const translations = {
+  fr: {
+    nav: { accueil: "Accueil", services: "Services", galerie: "Galerie", contact: "Contact" },
+    hero: {
+      badge: "Artisan Sellier Garnisseur",
+      title1: "Donnez une seconde vie à vos",
+      title2: "intérieurs",
+      title3: "et",
+      title4: "équipements",
+      desc: "Un seul artisan, de la découpe à la couture finale. Un travail d'orfèvre pour des réalisations uniques en cuir, Alcantara et matériaux premium.",
+      cta: "Demander un devis gratuit"
+    },
+    services: {
+      badge: "Mon Savoir-Faire",
+      title: "Quatre domaines d'",
+      titleHighlight: "excellence",
+      desc: "De l'automobile au mobilier, chaque projet bénéficie d'un savoir-faire artisanal et de matériaux premium pour un résultat durable et unique.",
+      automobile: { title: "Automobile", desc: "Redonnez vie à l'intérieur de votre véhicule avec un travail sur-mesure.", features: ["Réfection de sièges", "Ciels de toit", "Panneaux de portes"] },
+      moto: { title: "Moto", desc: "Confort et style personnalisé pour vos deux-roues.", features: ["Selles confort", "Pose de gel", "Personnalisation", "Réparations"] },
+      nautisme: { title: "Nautisme", desc: "Protégez et embellissez votre bateau avec des finitions marines.", features: ["Bains de soleil", "Selleries marines", "Tauds de protection", "Coussins sur-mesure"] },
+      mobilier: { title: "Mobilier", desc: "Restauration et création de mobilier avec des matériaux nobles.", features: ["Fauteuils", "Canapés", "Tables médicales", "Équipements sportifs"] }
+    },
+    engagement: {
+      badge: "L'Engagement Artisan",
+      title: "Un travail d'",
+      titleHighlight: "orfèvre",
+      titleEnd: ", de A à Z",
+      p1: "De la découpe à la couture finale, chaque projet passe uniquement entre mes mains. Cette approche garantit une attention méticuleuse aux détails et une cohérence parfaite tout au long du processus.",
+      p2: "Seul à l'atelier, je prends le temps nécessaire pour comprendre vos besoins, sélectionner les meilleurs matériaux et réaliser un travail sur-mesure qui dépassera vos attentes. Chaque pièce est unique, durable et pensée pour vous.",
+      suppliers: "Fournisseurs Certifiés",
+      suppliersDesc: "Je sélectionne exclusivement des tissus et cuirs provenant de",
+      suppliersHighlight: "fournisseurs professionnels français et européens",
+      suppliersEnd: ", répondant aux normes spécifiques de chaque secteur.",
+      cta: "Demander un devis gratuit",
+      sectors: "Secteurs & Normes",
+      myEngagement: "Mon Engagement",
+      features: {
+        artisanal: { title: "Travail artisanal", desc: "Chaque pièce est travaillée à la main avec précision et passion" },
+        premium: { title: "Matériaux premium", desc: "Cuir pleine fleur, Alcantara et tissus techniques de haute qualité" },
+        unique: { title: "Interlocuteur unique", desc: "Un seul artisan de A à Z pour garantir la cohérence du projet" }
+      },
+      norms: {
+        medical: { title: "Médical & Bien-être", desc: "Tissus antibactériens, antifongiques et résistants aux produits de désinfection" },
+        public: { title: "Espaces Publics", desc: "Normes non-feu M1/M2 pour cinémas, hôtels et restaurants" },
+        sport: { title: "Sport & Fitness", desc: "Haute résistance à l'abrasion et à la transpiration" },
+        transport: { title: "Transport & Mobilité", desc: "Homologation automobile, aviation et ferroviaire" },
+        nautisme: { title: "Nautisme", desc: "Traitements anti-UV et résistance à la salinité" }
+      }
+    },
+    gallery: {
+      badge: "Portfolio",
+      title: "Galerie de ",
+      titleHighlight: "réalisations",
+      desc: "Découvrez quelques exemples de projets réalisés avec passion et précision",
+      all: "Tous"
+    },
+    contact: {
+      badge: "Contact",
+      title: "Parlons de votre ",
+      titleHighlight: "projet",
+      desc: "Que ce soit pour une rénovation, une création sur-mesure ou un simple conseil, je suis à votre écoute.",
+      phone: "Téléphone",
+      email: "Email",
+      address: "Adresse",
+      instagram: "Instagram",
+      formTitle: "Demande de devis",
+      name: "Nom complet",
+      emailField: "Email",
+      phoneField: "Téléphone",
+      projectType: "Type de projet",
+      selectType: "Sélectionnez un type",
+      message: "Message",
+      submit: "Envoyer ma demande",
+      sending: "Envoi en cours...",
+      success: "Demande envoyée !",
+      successDesc: "Je vous recontacte très rapidement."
+    },
+    footer: "Tous droits réservés."
+  },
+  en: {
+    nav: { accueil: "Home", services: "Services", galerie: "Gallery", contact: "Contact" },
+    hero: {
+      badge: "Artisan Upholsterer",
+      title1: "Give a second life to your",
+      title2: "interiors",
+      title3: "and",
+      title4: "equipment",
+      desc: "One craftsman, from cutting to final stitching. Meticulous work for unique creations in leather, Alcantara and premium materials.",
+      cta: "Request a free quote"
+    },
+    services: {
+      badge: "My Expertise",
+      title: "Four areas of ",
+      titleHighlight: "excellence",
+      desc: "From automotive to furniture, each project benefits from artisanal know-how and premium materials for a durable and unique result.",
+      automobile: { title: "Automotive", desc: "Bring your vehicle's interior back to life with custom work.", features: ["Seat restoration", "Headliners", "Door panels"] },
+      moto: { title: "Motorcycle", desc: "Comfort and personalized style for your two-wheelers.", features: ["Comfort seats", "Gel installation", "Customization", "Repairs"] },
+      nautisme: { title: "Marine", desc: "Protect and beautify your boat with marine finishes.", features: ["Sun pads", "Marine upholstery", "Covers", "Custom cushions"] },
+      mobilier: { title: "Furniture", desc: "Restoration and creation of furniture with noble materials.", features: ["Armchairs", "Sofas", "Medical tables", "Sports equipment"] }
+    },
+    engagement: {
+      badge: "Artisan Commitment",
+      title: "Meticulous ",
+      titleHighlight: "craftsmanship",
+      titleEnd: " from A to Z",
+      p1: "From cutting to final stitching, each project passes only through my hands. This approach guarantees meticulous attention to detail and perfect consistency throughout the process.",
+      p2: "Alone in the workshop, I take the time needed to understand your needs, select the best materials and create custom work that will exceed your expectations. Each piece is unique, durable and designed for you.",
+      suppliers: "Certified Suppliers",
+      suppliersDesc: "I exclusively select fabrics and leathers from",
+      suppliersHighlight: "French and European professional suppliers",
+      suppliersEnd: ", meeting the specific standards of each sector.",
+      cta: "Request a free quote",
+      sectors: "Sectors & Standards",
+      myEngagement: "My Commitment",
+      features: {
+        artisanal: { title: "Artisan work", desc: "Each piece is handcrafted with precision and passion" },
+        premium: { title: "Premium materials", desc: "Full grain leather, Alcantara and high quality technical fabrics" },
+        unique: { title: "Single contact", desc: "One craftsman from A to Z to ensure project consistency" }
+      },
+      norms: {
+        medical: { title: "Medical & Wellness", desc: "Antibacterial, antifungal fabrics resistant to disinfection products" },
+        public: { title: "Public Spaces", desc: "Fire-retardant standards M1/M2 for cinemas, hotels and restaurants" },
+        sport: { title: "Sport & Fitness", desc: "High resistance to abrasion and perspiration" },
+        transport: { title: "Transport & Mobility", desc: "Automotive, aviation and railway certification" },
+        nautisme: { title: "Marine", desc: "Anti-UV treatments and salt resistance" }
+      }
+    },
+    gallery: {
+      badge: "Portfolio",
+      title: "Gallery of ",
+      titleHighlight: "achievements",
+      desc: "Discover some examples of projects made with passion and precision",
+      all: "All"
+    },
+    contact: {
+      badge: "Contact",
+      title: "Let's talk about your ",
+      titleHighlight: "project",
+      desc: "Whether for a renovation, custom creation or simple advice, I'm here to help.",
+      phone: "Phone",
+      email: "Email",
+      address: "Address",
+      instagram: "Instagram",
+      formTitle: "Quote request",
+      name: "Full name",
+      emailField: "Email",
+      phoneField: "Phone",
+      projectType: "Project type",
+      selectType: "Select a type",
+      message: "Message",
+      submit: "Send my request",
+      sending: "Sending...",
+      success: "Request sent!",
+      successDesc: "I'll get back to you very soon."
+    },
+    footer: "All rights reserved."
+  }
+};
+
+// Language Context
+const LanguageContext = createContext();
+
+const useLanguage = () => useContext(LanguageContext);
 
 // Animation variants
 const fadeUp = {
@@ -161,6 +326,7 @@ const sectorsNorms = [
 const Navigation = ({ activeSection, scrollToSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -169,10 +335,10 @@ const Navigation = ({ activeSection, scrollToSection }) => {
   }, []);
 
   const navItems = [
-    { id: "accueil", label: "Accueil" },
-    { id: "services", label: "Services" },
-    { id: "galerie", label: "Galerie" },
-    { id: "contact", label: "Contact" }
+    { id: "accueil", label: t.nav.accueil },
+    { id: "services", label: t.nav.services },
+    { id: "galerie", label: t.nav.galerie },
+    { id: "contact", label: t.nav.contact }
   ];
 
   return (
@@ -195,7 +361,7 @@ const Navigation = ({ activeSection, scrollToSection }) => {
           </motion.div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -206,16 +372,34 @@ const Navigation = ({ activeSection, scrollToSection }) => {
                 {item.label}
               </button>
             ))}
+            
+            {/* Language Toggle */}
+            <button
+              onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
+              className="flex items-center gap-2 text-sm text-light/60 hover:text-mint transition-colors border border-light/20 px-3 py-1.5 hover:border-mint/50"
+              data-testid="lang-toggle"
+            >
+              <Globe size={14} />
+              {lang === 'fr' ? 'EN' : 'FR'}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-light p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            data-testid="mobile-menu-toggle"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            <button
+              onClick={() => setLang(lang === 'fr' ? 'en' : 'fr')}
+              className="text-light/60 hover:text-mint transition-colors border border-light/20 px-2 py-1 text-xs"
+            >
+              {lang === 'fr' ? 'EN' : 'FR'}
+            </button>
+            <button
+              className="text-light p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              data-testid="mobile-menu-toggle"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Nav */}
@@ -252,7 +436,9 @@ const Navigation = ({ activeSection, scrollToSection }) => {
 };
 
 // Hero Section
-const HeroSection = ({ scrollToSection }) => (
+const HeroSection = ({ scrollToSection }) => {
+  const { t } = useLanguage();
+  return (
   <section id="accueil" className="relative min-h-screen flex items-center overflow-hidden" data-testid="hero-section">
     {/* Background Image */}
     <div className="absolute inset-0">
@@ -263,17 +449,17 @@ const HeroSection = ({ scrollToSection }) => (
     <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32">
       <AnimatedSection>
         <motion.div variants={fadeUp} className="mb-8">
-          <Badge>Artisan Sellier Garnisseur</Badge>
+          <Badge>{t.hero.badge}</Badge>
         </motion.div>
         
         <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-light leading-[1.1] mb-8 max-w-4xl">
-          Donnez une seconde vie à vos{" "}
-          <span className="text-mint">intérieurs</span> et{" "}
-          <span className="text-mint">équipements</span>
+          {t.hero.title1}{" "}
+          <span className="text-mint">{t.hero.title2}</span> {t.hero.title3}{" "}
+          <span className="text-mint">{t.hero.title4}</span>
         </motion.h1>
         
         <motion.p variants={fadeUp} className="text-light/70 text-lg max-w-2xl leading-relaxed mb-10">
-          Un seul artisan, de la découpe à la couture finale. Un travail d'orfèvre pour des réalisations uniques en cuir, Alcantara et matériaux premium.
+          {t.hero.desc}
         </motion.p>
         
         <motion.button
@@ -284,13 +470,14 @@ const HeroSection = ({ scrollToSection }) => (
           whileTap={{ scale: 0.98 }}
           data-testid="hero-cta-btn"
         >
-          Demander un devis gratuit
+          {t.hero.cta}
           <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
         </motion.button>
       </AnimatedSection>
     </div>
   </section>
-);
+  );
+};
 
 // Services Section
 const ServicesSection = () => (
@@ -458,6 +645,24 @@ const EngagementSection = () => {
                 </motion.div>
               ))}
             </div>
+
+            {/* Artisan Photo */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-6 relative overflow-hidden"
+            >
+              <img
+                src={IMAGES.artisanTravail}
+                alt="L'artisan au travail"
+                className="w-full h-64 object-cover"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-dark/80 backdrop-blur-sm p-4">
+                <p className="text-light/80 text-sm">L'artisan au travail dans son atelier</p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -540,6 +745,7 @@ const GallerySection = () => {
 
 // Contact Section
 const ContactSection = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -572,29 +778,45 @@ const ContactSection = () => {
           {/* Contact Info */}
           <AnimatedSection>
             <motion.div variants={fadeUp} className="mb-4 md:mb-6">
-              <Badge>Contact</Badge>
+              <Badge>{t.contact.badge}</Badge>
             </motion.div>
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl lg:text-5xl font-bold text-light mb-6 md:mb-8">
-              Parlons de votre <span className="text-mint">projet</span>
+              {t.contact.title}<span className="text-mint">{t.contact.titleHighlight}</span>
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-light/60 mb-8 md:mb-12 text-base md:text-lg">
-              Que ce soit pour une rénovation, une création sur-mesure ou un simple conseil, je suis à votre écoute.
+            <motion.p variants={fadeUp} className="text-light/60 mb-8 md:mb-10 text-base md:text-lg">
+              {t.contact.desc}
             </motion.p>
             
-            <motion.div variants={fadeUp} className="space-y-3 md:space-y-4">
-              <a href="tel:0643320178" className="group flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-phone">
+            <motion.div variants={fadeUp} className="space-y-3">
+              <a href="tel:0643320178" className="group flex items-center gap-4 p-4 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-phone">
                 <IconBox icon={Phone} />
                 <div>
-                  <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">Téléphone</p>
-                  <p className="text-light text-base md:text-lg font-semibold">06 43 32 01 78</p>
+                  <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">{t.contact.phone}</p>
+                  <p className="text-light text-base font-semibold">06 43 32 01 78</p>
                 </div>
               </a>
               
-              <a href="mailto:selleriegarniture.garcia@gmail.com" className="group flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-email">
+              <a href="mailto:selleriegarniture.garcia@gmail.com" className="group flex items-center gap-4 p-4 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-email">
                 <IconBox icon={Mail} />
                 <div className="min-w-0">
-                  <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">Email</p>
-                  <p className="text-light text-sm md:text-lg font-semibold truncate">selleriegarniture.garcia@gmail.com</p>
+                  <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">{t.contact.email}</p>
+                  <p className="text-light text-sm font-semibold truncate">selleriegarniture.garcia@gmail.com</p>
+                </div>
+              </a>
+
+              <a href="https://maps.google.com/?q=21+bis+rue+du+8+mai+Yzeure+03400" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 p-4 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-address">
+                <IconBox icon={MapPin} />
+                <div>
+                  <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">{t.contact.address}</p>
+                  <p className="text-light text-sm font-semibold">21 bis rue du 8 mai, 03400 Yzeure</p>
+                </div>
+              </a>
+
+              <a href="https://instagram.com/sellerie_garcia" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 p-4 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-instagram">
+                <IconBox icon={Instagram} />
+                <div>
+                  <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">{t.contact.instagram}</p>
+                  <p className="text-light text-base font-semibold">@sellerie_garcia</p>
                 </div>
               </a>
             </motion.div>
@@ -603,7 +825,7 @@ const ContactSection = () => {
           {/* Contact Form */}
           <AnimatedSection>
             <motion.div variants={fadeUp} className="bg-dark-lighter border border-light/10 p-5 sm:p-6 md:p-8 lg:p-10" data-testid="contact-form-container">
-              <h3 className="text-xl md:text-2xl font-bold text-light mb-6 md:mb-8">Demande de devis</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-light mb-6 md:mb-8">{t.contact.formTitle}</h3>
               
               {submitSuccess ? (
                 <motion.div 
@@ -616,13 +838,13 @@ const ContactSection = () => {
                     <Check size={28} className="text-dark md:hidden" />
                     <Check size={32} className="text-dark hidden md:block" />
                   </div>
-                  <p className="text-light text-lg md:text-xl font-bold mb-2">Demande envoyée !</p>
-                  <p className="text-light/60 text-sm md:text-base">Je vous recontacte très rapidement.</p>
+                  <p className="text-light text-lg md:text-xl font-bold mb-2">{t.contact.success}</p>
+                  <p className="text-light/60 text-sm md:text-base">{t.contact.successDesc}</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" data-testid="contact-form">
                   <div>
-                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Nom complet *</label>
+                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.name} *</label>
                     <input
                       type="text"
                       required
@@ -635,7 +857,7 @@ const ContactSection = () => {
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     <div>
-                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Email *</label>
+                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.emailField} *</label>
                       <input
                         type="email"
                         required
@@ -646,7 +868,7 @@ const ContactSection = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Téléphone *</label>
+                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.phoneField} *</label>
                       <input
                         type="tel"
                         required
@@ -659,7 +881,7 @@ const ContactSection = () => {
                   </div>
                   
                   <div>
-                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Type de projet *</label>
+                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.projectType} *</label>
                     <select
                       required
                       value={formData.projectType}
@@ -667,7 +889,7 @@ const ContactSection = () => {
                       className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors cursor-pointer"
                       data-testid="select-project-type"
                     >
-                      <option value="">Sélectionnez un type</option>
+                      <option value="">{t.contact.selectType}</option>
                       <option value="Automobile">Automobile</option>
                       <option value="Moto">Moto</option>
                       <option value="Nautisme">Nautisme</option>
@@ -677,7 +899,7 @@ const ContactSection = () => {
                   </div>
                   
                   <div>
-                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Message *</label>
+                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.message} *</label>
                     <textarea
                       required
                       rows={4}
@@ -696,7 +918,7 @@ const ContactSection = () => {
                     whileTap={{ scale: 0.99 }}
                     data-testid="submit-btn"
                   >
-                    {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+                    {isSubmitting ? t.contact.sending : t.contact.submit}
                   </motion.button>
                 </form>
               )}
@@ -709,7 +931,9 @@ const ContactSection = () => {
 };
 
 // Footer
-const Footer = () => (
+const Footer = () => {
+  const { t } = useLanguage();
+  return (
   <footer className="bg-dark py-8 border-t border-light/10" data-testid="footer">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -717,15 +941,18 @@ const Footer = () => (
           <img src={LOGO_URL} alt="García Sellerie" className="h-10 w-10 rounded-full object-cover" />
           <p className="text-light font-semibold">García Sellerie Garniture</p>
         </div>
-        <p className="text-light/40 text-sm">© 2024 García Sellerie Garniture. Tous droits réservés.</p>
+        <p className="text-light/40 text-sm">© 2024 García Sellerie Garniture. {t.footer}</p>
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 // Main App Component
 function App() {
   const [activeSection, setActiveSection] = useState("accueil");
+  const [lang, setLang] = useState("fr");
+  const t = translations[lang];
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -757,15 +984,17 @@ function App() {
   }, []);
 
   return (
-    <div className="App bg-dark min-h-screen" data-testid="app-container">
-      <Navigation activeSection={activeSection} scrollToSection={scrollToSection} />
-      <HeroSection scrollToSection={scrollToSection} />
-      <ServicesSection />
-      <EngagementSection />
-      <GallerySection />
-      <ContactSection />
-      <Footer />
-    </div>
+    <LanguageContext.Provider value={{ lang, setLang, t }}>
+      <div className="App bg-dark min-h-screen" data-testid="app-container">
+        <Navigation activeSection={activeSection} scrollToSection={scrollToSection} />
+        <HeroSection scrollToSection={scrollToSection} />
+        <ServicesSection />
+        <EngagementSection />
+        <GallerySection />
+        <ContactSection />
+        <Footer />
+      </div>
+    </LanguageContext.Provider>
   );
 }
 
