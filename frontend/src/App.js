@@ -23,8 +23,8 @@ const IMAGES = {
   siegesOrange: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/9uzitjl3_09cc7c17-d8b6-498b-8d02-72e975df5aa9.jpeg",
   selleHonda: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/d3e1lvkw_5658f4c1-c989-4b32-ae3a-11724c4689d4.jpeg",
   artisanTravail: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/16okuyv0_IMG_0322.jpeg",
-  automobile: "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?w=800&q=80",
-  moto: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg",
+  automobile: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xyya385f_cb4b354d-ebe0-4806-8046-d301dc377a9b.jpeg",
+  moto: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/0l64azwa_IMG_0325.jpeg",
   nautisme: "https://images.unsplash.com/photo-1753295687822-b7785d55c24e?w=800&q=80"
 };
 
@@ -78,7 +78,7 @@ const services = [
     id: "automobile",
     title: "Automobile",
     description: "Redonnez vie à l'intérieur de votre véhicule avec un travail sur-mesure.",
-    image: "https://images.unsplash.com/photo-1629991981598-f3fc8f102cb7?w=800&q=80",
+    image: IMAGES.automobile,
     icon: Car,
     features: ["Réfection de sièges", "Ciels de toit", "Panneaux de portes"]
   },
@@ -86,7 +86,7 @@ const services = [
     id: "moto",
     title: "Moto",
     description: "Confort et style personnalisé pour vos deux-roues.",
-    image: IMAGES.motoSport,
+    image: IMAGES.moto,
     icon: Bike,
     features: ["Selles confort", "Pose de gel", "Personnalisation", "Réparations"]
   },
@@ -122,7 +122,7 @@ const galleryItems = [
   { id: 10, title: "Yacht de luxe", desc: "Aménagement intérieur complet", category: "Nautisme", image: IMAGES.nautisme }
 ];
 
-const materials = ["Cuir pleine fleur", "Alcantara", "Simili cuir technique", "Tissus nautiques", "Mousse haute densité"];
+const materials = [];
 
 // Secteurs et normes
 const sectorsNorms = [
@@ -391,18 +391,6 @@ const EngagementSection = () => {
               Seul à l'atelier, je prends le temps nécessaire pour comprendre vos besoins, sélectionner les meilleurs matériaux et réaliser un travail sur-mesure qui dépassera vos attentes. Chaque pièce est unique, durable et pensée pour vous.
             </motion.p>
 
-            {/* Materials */}
-            <motion.div variants={fadeUp} className="mb-8">
-              <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">Matériaux Utilisés</p>
-              <div className="flex flex-wrap gap-2">
-                {materials.map((material, i) => (
-                  <span key={i} className="text-sm text-light/70 border border-light/20 px-4 py-2 hover:border-mint hover:text-mint transition-colors cursor-default">
-                    {material}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
             {/* Sourcing Info */}
             <motion.div variants={fadeUp} className="bg-dark-lighter border border-mint/20 p-6 mb-6">
               <p className="text-mint font-semibold text-sm tracking-wider uppercase mb-3">Fournisseurs Certifiés</p>
@@ -564,35 +552,35 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-dark" data-testid="contact-section">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16">
+    <section id="contact" className="py-16 md:py-24 bg-dark" data-testid="contact-section">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Contact Info */}
           <AnimatedSection>
-            <motion.div variants={fadeUp} className="mb-6">
+            <motion.div variants={fadeUp} className="mb-4 md:mb-6">
               <Badge>Contact</Badge>
             </motion.div>
-            <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-light mb-8">
+            <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl lg:text-5xl font-bold text-light mb-6 md:mb-8">
               Parlons de votre <span className="text-mint">projet</span>
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-light/60 mb-12 text-lg">
+            <motion.p variants={fadeUp} className="text-light/60 mb-8 md:mb-12 text-base md:text-lg">
               Que ce soit pour une rénovation, une création sur-mesure ou un simple conseil, je suis à votre écoute.
             </motion.p>
             
-            <motion.div variants={fadeUp} className="space-y-4">
-              <a href="tel:0643320178" className="group flex items-center gap-6 p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-phone">
+            <motion.div variants={fadeUp} className="space-y-3 md:space-y-4">
+              <a href="tel:0643320178" className="group flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-phone">
                 <IconBox icon={Phone} />
                 <div>
                   <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">Téléphone</p>
-                  <p className="text-light text-lg font-semibold">06 43 32 01 78</p>
+                  <p className="text-light text-base md:text-lg font-semibold">06 43 32 01 78</p>
                 </div>
               </a>
               
-              <a href="mailto:selleriegarniture.garcia@gmail.com" className="group flex items-center gap-6 p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-email">
+              <a href="mailto:selleriegarniture.garcia@gmail.com" className="group flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-dark-lighter border border-light/10 hover:border-mint/30 transition-colors" data-testid="contact-email">
                 <IconBox icon={Mail} />
-                <div>
+                <div className="min-w-0">
                   <p className="text-light/50 text-xs font-semibold tracking-wider uppercase mb-1">Email</p>
-                  <p className="text-light text-lg font-semibold">selleriegarniture.garcia@gmail.com</p>
+                  <p className="text-light text-sm md:text-lg font-semibold truncate">selleriegarniture.garcia@gmail.com</p>
                 </div>
               </a>
             </motion.div>
@@ -600,68 +588,69 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <AnimatedSection>
-            <motion.div variants={fadeUp} className="bg-dark-lighter border border-light/10 p-8 lg:p-10" data-testid="contact-form-container">
-              <h3 className="text-2xl font-bold text-light mb-8">Demande de devis</h3>
+            <motion.div variants={fadeUp} className="bg-dark-lighter border border-light/10 p-5 sm:p-6 md:p-8 lg:p-10" data-testid="contact-form-container">
+              <h3 className="text-xl md:text-2xl font-bold text-light mb-6 md:mb-8">Demande de devis</h3>
               
               {submitSuccess ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-16"
+                  className="text-center py-12 md:py-16"
                   data-testid="form-success"
                 >
-                  <div className="w-20 h-20 bg-mint flex items-center justify-center mx-auto mb-6">
-                    <Check size={32} className="text-dark" />
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-mint flex items-center justify-center mx-auto mb-4 md:mb-6">
+                    <Check size={28} className="text-dark md:hidden" />
+                    <Check size={32} className="text-dark hidden md:block" />
                   </div>
-                  <p className="text-light text-xl font-bold mb-2">Demande envoyée !</p>
-                  <p className="text-light/60">Je vous recontacte très rapidement.</p>
+                  <p className="text-light text-lg md:text-xl font-bold mb-2">Demande envoyée !</p>
+                  <p className="text-light/60 text-sm md:text-base">Je vous recontacte très rapidement.</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form">
+                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" data-testid="contact-form">
                   <div>
-                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-3 block">Nom complet *</label>
+                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Nom complet *</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-dark text-light px-4 py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
+                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
                       data-testid="input-name"
                     />
                   </div>
                   
-                  <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                     <div>
-                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-3 block">Email *</label>
+                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Email *</label>
                       <input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-dark text-light px-4 py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
+                        className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
                         data-testid="input-email"
                       />
                     </div>
                     <div>
-                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-3 block">Téléphone *</label>
+                      <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Téléphone *</label>
                       <input
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full bg-dark text-light px-4 py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
+                        className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
                         data-testid="input-phone"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-3 block">Type de projet *</label>
+                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Type de projet *</label>
                     <select
                       required
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                      className="w-full bg-dark text-light px-4 py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors cursor-pointer"
+                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors cursor-pointer"
                       data-testid="select-project-type"
                     >
                       <option value="">Sélectionnez un type</option>
@@ -674,13 +663,13 @@ const ContactSection = () => {
                   </div>
                   
                   <div>
-                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-3 block">Message *</label>
+                    <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">Message *</label>
                     <textarea
                       required
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-dark text-light px-4 py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors resize-none"
+                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors resize-none"
                       data-testid="input-message"
                     />
                   </div>
@@ -688,7 +677,7 @@ const ContactSection = () => {
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-mint text-dark py-4 font-semibold hover:bg-mint/90 transition-all duration-300 disabled:opacity-50"
+                    className="w-full bg-mint text-dark py-3.5 md:py-4 font-semibold text-base hover:bg-mint/90 transition-all duration-300 disabled:opacity-50"
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                     data-testid="submit-btn"
