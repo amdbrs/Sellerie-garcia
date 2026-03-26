@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+import resend
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -17,6 +18,10 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# Resend configuration
+resend.api_key = os.environ.get('RESEND_API_KEY')
+NOTIFICATION_EMAIL = "selleriegarniture.garcia@gmail.com"
 
 # Create the main app
 app = FastAPI()
@@ -69,6 +74,29 @@ async def create_contact_request(input: ContactRequestCreate):
     doc['timestamp'] = doc['timestamp'].isoformat()
     
     await db.contact_requests.insert_one(doc)
+    
+    # Send email notification
+    try:
+        resend.Emails.send({
+            "from": "García Sellerie <onboarding@resend.dev>",
+            "to": [NOTIFICATION_EMAIL],
+            "subject": f"Nouvelle demande de devis - {input.projectType}",
+            "html": f"""
+            <h2>Nouvelle demande de devis</h2>
+            <p><strong>Nom :</strong> {input.name}</p>
+            <p><strong>Email :</strong> {input.email}</p>
+            <p><strong>Téléphone :</strong> {input.phone}</p>
+            <p><strong>Type de projet :</strong> {input.projectType}</p>
+            <p><strong>Message :</strong></p>
+            <p>{input.message}</p>
+            <hr>
+            <p><em>Demande reçue via le site García Sellerie Garniture</em></p>
+            """
+        })
+        logger.info(f"Email notification sent for contact request from {input.name}")
+    except Exception as e:
+        logger.error(f"Failed to send email notification: {e}")
+    
     return contact_obj
 
 @api_router.get("/contact", response_model=List[ContactRequest])
