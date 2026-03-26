@@ -480,24 +480,62 @@ const HeroSection = ({ scrollToSection }) => {
 };
 
 // Services Section
-const ServicesSection = () => (
+const ServicesSection = () => {
+  const { t } = useLanguage();
+  
+  const servicesData = [
+    {
+      id: "automobile",
+      title: t.services.automobile.title,
+      description: t.services.automobile.desc,
+      image: IMAGES.automobile,
+      icon: Car,
+      features: t.services.automobile.features
+    },
+    {
+      id: "moto",
+      title: t.services.moto.title,
+      description: t.services.moto.desc,
+      image: IMAGES.moto,
+      icon: Bike,
+      features: t.services.moto.features
+    },
+    {
+      id: "nautisme",
+      title: t.services.nautisme.title,
+      description: t.services.nautisme.desc,
+      image: IMAGES.nautisme,
+      icon: Ship,
+      features: t.services.nautisme.features
+    },
+    {
+      id: "mobilier",
+      title: t.services.mobilier.title,
+      description: t.services.mobilier.desc,
+      image: IMAGES.mobilier,
+      icon: Sofa,
+      features: t.services.mobilier.features
+    }
+  ];
+
+  return (
   <section id="services" className="py-24 bg-dark" data-testid="services-section">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <AnimatedSection>
         <motion.div variants={fadeUp} className="mb-6">
-          <Badge>Mon Savoir-Faire</Badge>
+          <Badge>{t.services.badge}</Badge>
         </motion.div>
         <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-light mb-6">
-          Quatre domaines d'<span className="text-mint">excellence</span>
+          {t.services.title}<span className="text-mint">{t.services.titleHighlight}</span>
         </motion.h2>
         <motion.p variants={fadeUp} className="text-light/60 max-w-2xl mb-16 text-lg">
-          De l'automobile au mobilier, chaque projet bénéficie d'un savoir-faire artisanal et de matériaux premium pour un résultat durable et unique.
+          {t.services.desc}
         </motion.p>
       </AnimatedSection>
 
       {/* Services Grid */}
       <div className="grid md:grid-cols-2 gap-6">
-        {services.map((service, index) => (
+        {servicesData.map((service, index) => (
           <motion.div
             key={service.id}
             initial={{ opacity: 0, y: 40 }}
@@ -538,26 +576,25 @@ const ServicesSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 // Engagement Section
 const EngagementSection = () => {
+  const { lang, t } = useLanguage();
+  
+  const sectorsNorms = [
+    { icon: Heart, title: t.engagement.norms.medical.title, description: t.engagement.norms.medical.desc },
+    { icon: Building2, title: t.engagement.norms.public.title, description: t.engagement.norms.public.desc },
+    { icon: Dumbbell, title: t.engagement.norms.sport.title, description: t.engagement.norms.sport.desc },
+    { icon: Plane, title: t.engagement.norms.transport.title, description: t.engagement.norms.transport.desc },
+    { icon: Anchor, title: t.engagement.norms.nautisme.title, description: t.engagement.norms.nautisme.desc }
+  ];
+
   const features = [
-    {
-      icon: Scissors,
-      title: "Travail artisanal",
-      description: "Chaque pièce est travaillée à la main avec précision et passion"
-    },
-    {
-      icon: Layers,
-      title: "Matériaux premium",
-      description: "Cuir pleine fleur, Alcantara et tissus techniques de haute qualité"
-    },
-    {
-      icon: User,
-      title: "Interlocuteur unique",
-      description: "Un seul artisan de A à Z pour garantir la cohérence du projet"
-    }
+    { icon: Scissors, title: t.engagement.features.artisanal.title, description: t.engagement.features.artisanal.desc },
+    { icon: Layers, title: t.engagement.features.premium.title, description: t.engagement.features.premium.desc },
+    { icon: User, title: t.engagement.features.unique.title, description: t.engagement.features.unique.desc }
   ];
 
   return (
@@ -567,26 +604,26 @@ const EngagementSection = () => {
           {/* Left Content */}
           <AnimatedSection>
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge>L'Engagement Artisan</Badge>
+              <Badge>{t.engagement.badge}</Badge>
             </motion.div>
             
             <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-light mb-8 leading-tight">
-              Un travail d'<span className="text-mint">orfèvre</span>, de A à Z
+              {t.engagement.title}<span className="text-mint">{t.engagement.titleHighlight}</span>{t.engagement.titleEnd}
             </motion.h2>
             
             <motion.p variants={fadeUp} className="text-light/70 mb-6 text-lg leading-relaxed">
-              De la découpe à la couture finale, chaque projet passe uniquement entre mes mains. Cette approche garantit une attention méticuleuse aux détails et une cohérence parfaite tout au long du processus.
+              {t.engagement.p1}
             </motion.p>
             
             <motion.p variants={fadeUp} className="text-light/70 mb-10 text-lg leading-relaxed">
-              Seul à l'atelier, je prends le temps nécessaire pour comprendre vos besoins, sélectionner les meilleurs matériaux et réaliser un travail sur-mesure qui dépassera vos attentes. Chaque pièce est unique, durable et pensée pour vous.
+              {t.engagement.p2}
             </motion.p>
 
             {/* Sourcing Info */}
             <motion.div variants={fadeUp} className="bg-dark-lighter border border-mint/20 p-6 mb-6">
-              <p className="text-mint font-semibold text-sm tracking-wider uppercase mb-3">Fournisseurs Certifiés</p>
+              <p className="text-mint font-semibold text-sm tracking-wider uppercase mb-3">{t.engagement.suppliers}</p>
               <p className="text-light/70 text-sm leading-relaxed mb-6">
-                Je sélectionne exclusivement des tissus et cuirs provenant de <span className="text-light">fournisseurs professionnels français et européens</span>, répondant aux normes spécifiques de chaque secteur.
+                {t.engagement.suppliersDesc} <span className="text-light">{t.engagement.suppliersHighlight}</span>{t.engagement.suppliersEnd}
               </p>
               <button
                 onClick={() => {
@@ -595,15 +632,30 @@ const EngagementSection = () => {
                 }}
                 className="bg-mint text-dark px-6 py-3 font-semibold text-sm hover:bg-mint/90 transition-all duration-300 inline-flex items-center gap-2"
               >
-                Demander un devis gratuit
+                {t.engagement.cta}
                 <ArrowRight size={16} />
               </button>
+            </motion.div>
+
+            {/* Artisan Photo - under Fournisseurs */}
+            <motion.div
+              variants={fadeUp}
+              className="relative overflow-hidden"
+            >
+              <img
+                src={IMAGES.artisanTravail}
+                alt={lang === 'fr' ? "L'artisan au travail" : "The craftsman at work"}
+                className="w-full h-72 object-cover"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-dark/80 backdrop-blur-sm p-4">
+                <p className="text-light/80 text-sm">{lang === 'fr' ? "L'artisan au travail dans son atelier" : "The craftsman at work in his workshop"}</p>
+              </div>
             </motion.div>
           </AnimatedSection>
 
           {/* Right Content - Sectors & Norms */}
           <div className="space-y-4">
-            <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">Secteurs & Normes</p>
+            <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">{t.engagement.sectors}</p>
             {sectorsNorms.map((sector, index) => (
               <motion.div
                 key={index}
@@ -626,7 +678,7 @@ const EngagementSection = () => {
 
             {/* Features */}
             <div className="pt-4 space-y-4">
-              <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">Mon Engagement</p>
+              <p className="text-light font-semibold text-sm tracking-wider uppercase mb-4">{t.engagement.myEngagement}</p>
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -645,24 +697,6 @@ const EngagementSection = () => {
                 </motion.div>
               ))}
             </div>
-
-            {/* Artisan Photo */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-6 relative overflow-hidden"
-            >
-              <img
-                src={IMAGES.artisanTravail}
-                alt="L'artisan au travail"
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-dark/80 backdrop-blur-sm p-4">
-                <p className="text-light/80 text-sm">L'artisan au travail dans son atelier</p>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>
@@ -672,23 +706,24 @@ const EngagementSection = () => {
 
 // Gallery Section
 const GallerySection = () => {
-  const [filter, setFilter] = useState("Tous");
-  const categories = ["Tous", "Automobile", "Moto", "Nautisme", "Mobilier"];
+  const { t } = useLanguage();
+  const [filter, setFilter] = useState(t.gallery.all);
+  const categories = [t.gallery.all, "Automobile", "Moto", "Nautisme", "Mobilier"];
 
-  const filteredItems = filter === "Tous" ? galleryItems : galleryItems.filter(item => item.category === filter);
+  const filteredItems = filter === t.gallery.all ? galleryItems : galleryItems.filter(item => item.category === filter);
 
   return (
     <section id="galerie" className="py-24 bg-dark-lighter" data-testid="gallery-section">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <AnimatedSection>
           <motion.div variants={fadeUp} className="mb-6">
-            <Badge>Portfolio</Badge>
+            <Badge>{t.gallery.badge}</Badge>
           </motion.div>
           <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-bold text-light mb-6">
-            Galerie de <span className="text-mint">réalisations</span>
+            {t.gallery.title}<span className="text-mint">{t.gallery.titleHighlight}</span>
           </motion.h2>
           <motion.p variants={fadeUp} className="text-light/60 max-w-xl mb-12 text-lg">
-            Découvrez quelques exemples de projets réalisés avec passion et précision
+            {t.gallery.desc}
           </motion.p>
         </AnimatedSection>
 
