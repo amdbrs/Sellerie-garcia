@@ -642,13 +642,8 @@ const EngagementSection = () => {
 const GallerySection = () => {
   const { lang, t } = useLanguage();
   const allLabel = t.gallery.all;
-  const [filter, setFilter] = useState(allLabel);
-  const categories = [allLabel, "Automobile", "Moto", "Nautisme", "Mobilier"];
-
-  // Reset filter when language changes
-  useEffect(() => {
-    setFilter(allLabel);
-  }, [allLabel]);
+  const [filter, setFilter] = useState("__all__");
+  const categories = ["__all__", "Automobile", "Moto", "Nautisme", "Mobilier"];
 
   // Build gallery items with translations
   const galleryItems = galleryItemsData.map(item => ({
@@ -657,7 +652,10 @@ const GallerySection = () => {
     desc: lang === 'fr' ? item.descFr : item.descEn
   }));
 
-  const filteredItems = filter === allLabel ? galleryItems : galleryItems.filter(item => item.category === filter);
+  const filteredItems = filter === "__all__" ? galleryItems : galleryItems.filter(item => item.category === filter);
+
+  // Get display label for filter button
+  const getFilterLabel = (cat) => cat === "__all__" ? allLabel : cat;
 
   return (
     <section id="galerie" className="py-24 bg-dark-lighter" data-testid="gallery-section">
@@ -685,7 +683,7 @@ const GallerySection = () => {
               whileTap={{ scale: 0.98 }}
               data-testid={`filter-${cat.toLowerCase()}`}
             >
-              {cat}
+              {getFilterLabel(cat)}
             </motion.button>
           ))}
         </div>
