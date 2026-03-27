@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef, createContext, useContext } from "react";
 import "./App.css";
-import axios from "axios";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, Car, Bike, Ship, Sofa, Scissors, Layers, User, Heart, Building2, Dumbbell, Plane, Anchor, MapPin, Instagram, Globe } from "lucide-react";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
 
 // Logo García
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/8bv8bi5b_IMG_0328.png";
@@ -731,27 +727,36 @@ const GallerySection = () => {
 
 // Contact Section
 const ContactSection = () => {
-  const { t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    projectType: "",
-    message: ""
-  });
+  const { lang, t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const formRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(false);
+    
+    const formData = new FormData(formRef.current);
     
     try {
-      await axios.post(`${API}/contact`, formData);
-      setSubmitSuccess(true);
-      setFormData({ name: "", email: "", phone: "", projectType: "", message: "" });
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        setSubmitSuccess(true);
+        formRef.current.reset();
+      } else {
+        setSubmitError(true);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSubmitError(true);
     }
     
     setIsSubmitting(false);
@@ -828,15 +833,26 @@ const ContactSection = () => {
                   <p className="text-light/60 text-sm md:text-base">{t.contact.successDesc}</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" data-testid="contact-form">
+                <form 
+                  ref={formRef}
+                  onSubmit={handleSubmit} 
+                  className="space-y-4 md:space-y-6" 
+                  data-testid="contact-form"
+                >
+                  {/* Web3Forms Hidden Fields */}
+                  <input type="hidden" name="access_key" value="3919accd-c2c3-420f-8b8f-96a9408e7ae3" />
+                  <input type="hidden" name="subject" value={lang === 'fr' ? 'Nouvelle demande de devis - García Sellerie' : 'New quote request - García Sellerie'} />
+                  <input type="hidden" name="from_name" value="García Sellerie Garniture" />
+                  <input type="checkbox" name="botcheck" className="hidden" />
+                  
                   <div>
                     <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.name} *</label>
                     <input
                       type="text"
+                      name="name"
                       required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
+                      placeholder={lang === 'fr' ? 'Votre nom complet' : 'Your full name'}
+                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors placeholder:text-light/30"
                       data-testid="input-name"
                     />
                   </div>
@@ -846,10 +862,10 @@ const ContactSection = () => {
                       <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.emailField} *</label>
                       <input
                         type="email"
+                        name="email"
                         required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
+                        placeholder={lang === 'fr' ? 'votre@email.com' : 'your@email.com'}
+                        className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors placeholder:text-light/30"
                         data-testid="input-email"
                       />
                     </div>
@@ -857,10 +873,10 @@ const ContactSection = () => {
                       <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.phoneField} *</label>
                       <input
                         type="tel"
+                        name="phone"
                         required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors"
+                        placeholder={lang === 'fr' ? '06 00 00 00 00' : '+33 6 00 00 00 00'}
+                        className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors placeholder:text-light/30"
                         data-testid="input-phone"
                       />
                     </div>
@@ -869,32 +885,37 @@ const ContactSection = () => {
                   <div>
                     <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.projectType} *</label>
                     <select
+                      name="project_type"
                       required
-                      value={formData.projectType}
-                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                       className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors cursor-pointer"
                       data-testid="select-project-type"
                     >
                       <option value="">{t.contact.selectType}</option>
                       <option value="Automobile">Automobile</option>
-                      <option value="Moto">Moto</option>
-                      <option value="Nautisme">Nautisme</option>
-                      <option value="Mobilier">Mobilier</option>
-                      <option value="Autre">Autre</option>
+                      <option value="Moto">{lang === 'fr' ? 'Moto' : 'Motorcycle'}</option>
+                      <option value="Nautisme">{lang === 'fr' ? 'Nautisme' : 'Marine'}</option>
+                      <option value="Mobilier">{lang === 'fr' ? 'Mobilier' : 'Furniture'}</option>
+                      <option value="Autre">{lang === 'fr' ? 'Autre' : 'Other'}</option>
                     </select>
                   </div>
                   
                   <div>
                     <label className="text-light/70 text-xs font-semibold tracking-wider uppercase mb-2 md:mb-3 block">{t.contact.message} *</label>
                     <textarea
+                      name="message"
                       required
                       rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors resize-none"
+                      placeholder={lang === 'fr' ? 'Décrivez votre projet...' : 'Describe your project...'}
+                      className="w-full bg-dark text-light text-base px-4 py-3 md:py-4 border border-light/20 focus:border-mint focus:outline-none transition-colors resize-none placeholder:text-light/30"
                       data-testid="input-message"
                     />
                   </div>
+
+                  {submitError && (
+                    <p className="text-red-400 text-sm">
+                      {lang === 'fr' ? 'Une erreur est survenue. Veuillez réessayer.' : 'An error occurred. Please try again.'}
+                    </p>
+                  )}
                   
                   <motion.button
                     type="submit"
