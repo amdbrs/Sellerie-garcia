@@ -10,22 +10,22 @@ const API = `${BACKEND_URL}/api`;
 // Logo García
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/8bv8bi5b_IMG_0328.png";
 
-// Images - Photos réelles de l'atelier García
+// Images - Photos réelles de l'atelier García avec alt SEO
 const IMAGES = {
-  hero: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg",
-  atelier: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/mhes5mb7_1bb1be00-9a9c-409b-a3de-f9106431bc78.jpeg",
-  atelierLarge: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg",
-  mobilier: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m977ytlo_beff6e02-660e-488a-864f-94ccc741d303.jpeg",
-  vespa: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg",
-  motoSport: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m75tu18a_795c9272-3bc1-4bfe-8fce-d420776783c8.jpeg",
-  couture: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/nvf1p6p8_c13492b3-b3ec-4389-82ac-e944a39d0699.jpeg",
-  coutureCuirMarron: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/my9739q8_0b43e4fd-f93b-4883-ab81-5128b866ce01.jpeg",
-  siegesOrange: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/9uzitjl3_09cc7c17-d8b6-498b-8d02-72e975df5aa9.jpeg",
-  selleHonda: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/d3e1lvkw_5658f4c1-c989-4b32-ae3a-11724c4689d4.jpeg",
-  artisanTravail: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/lt2nrwqs_IMG_0322.jpeg",
-  automobile: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xyya385f_cb4b354d-ebe0-4806-8046-d301dc377a9b.jpeg",
-  moto: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/0l64azwa_IMG_0325.jpeg",
-  nautisme: "https://images.unsplash.com/photo-1753295687822-b7785d55c24e?w=800&q=80"
+  hero: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg", alt: "Atelier Garcia sellerie Yzeure - vue d'ensemble" },
+  atelier: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/mhes5mb7_1bb1be00-9a9c-409b-a3de-f9106431bc78.jpeg", alt: "Atelier Garcia sellerie Yzeure" },
+  atelierLarge: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg", alt: "Atelier Garcia sellerie garniture Yzeure Moulins" },
+  mobilier: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m977ytlo_beff6e02-660e-488a-864f-94ccc741d303.jpeg", alt: "Restauration chaises cuir noir Allier" },
+  vespa: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg", alt: "Confection selle Vespa personnalisée Moulins" },
+  motoSport: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m75tu18a_795c9272-3bc1-4bfe-8fce-d420776783c8.jpeg", alt: "Confection selle moto sport personnalisée Allier" },
+  couture: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/nvf1p6p8_c13492b3-b3ec-4389-82ac-e944a39d0699.jpeg", alt: "Couture cuir artisanale sellerie Garcia" },
+  coutureCuirMarron: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/my9739q8_0b43e4fd-f93b-4883-ab81-5128b866ce01.jpeg", alt: "Travail du cuir marron atelier Yzeure" },
+  siegesOrange: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/9uzitjl3_09cc7c17-d8b6-498b-8d02-72e975df5aa9.jpeg", alt: "Restauration siège auto cuir bicolore Allier" },
+  selleHonda: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/d3e1lvkw_5658f4c1-c989-4b32-ae3a-11724c4689d4.jpeg", alt: "Confection selle Honda personnalisée logo brodé" },
+  artisanTravail: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/lt2nrwqs_IMG_0322.jpeg", alt: "Artisan sellier Garcia au travail Yzeure" },
+  automobile: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xyya385f_cb4b354d-ebe0-4806-8046-d301dc377a9b.jpeg", alt: "Restauration siège auto cuir Allier" },
+  moto: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/0l64azwa_IMG_0325.jpeg", alt: "Confection selle moto personnalisée Moulins" },
+  nautisme: { url: "https://images.unsplash.com/photo-1753295687822-b7785d55c24e?w=800&q=80", alt: "Sellerie nautique bateau Allier" }
 };
 
 // Translations
@@ -237,89 +237,22 @@ const IconBox = ({ icon: Icon, rotated = false }) => (
   </div>
 );
 
-// Services data
-const services = [
-  {
-    id: "automobile",
-    title: "Automobile",
-    description: "Redonnez vie à l'intérieur de votre véhicule avec un travail sur-mesure.",
-    image: IMAGES.automobile,
-    icon: Car,
-    features: ["Réfection de sièges", "Ciels de toit", "Panneaux de portes"]
-  },
-  {
-    id: "moto",
-    title: "Moto",
-    description: "Confort et style personnalisé pour vos deux-roues.",
-    image: IMAGES.moto,
-    icon: Bike,
-    features: ["Selles confort", "Pose de gel", "Personnalisation", "Réparations"]
-  },
-  {
-    id: "nautisme",
-    title: "Nautisme",
-    description: "Protégez et embellissez votre bateau avec des finitions marines.",
-    image: IMAGES.nautisme,
-    icon: Ship,
-    features: ["Bains de soleil", "Selleries marines", "Tauds de protection", "Coussins sur-mesure"]
-  },
-  {
-    id: "mobilier",
-    title: "Mobilier",
-    description: "Restauration et création de mobilier avec des matériaux nobles.",
-    image: IMAGES.mobilier,
-    icon: Sofa,
-    features: ["Fauteuils", "Canapés", "Tables médicales", "Équipements sportifs"]
-  }
-];
-
-// Gallery data - Photos réelles
-const galleryItems = [
-  { id: 1, title: "Sièges bicolores", desc: "Sièges auto orange et noir sur-mesure", category: "Automobile", image: IMAGES.siegesOrange },
-  { id: 2, title: "Intérieur voiture collection", desc: "Sièges cuir noir avec passepoil", category: "Automobile", image: IMAGES.automobile },
-  { id: 3, title: "Sièges sport", desc: "Tissu technique surpiqûres blanches", category: "Automobile", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xnpdtgc2_85df2709-64ae-4e70-a5a7-6651dd092afa.jpeg" },
-  { id: 4, title: "Selle Triumph Thruxton", desc: "Selle matelassée avec logo García", category: "Moto", image: IMAGES.moto },
-  { id: 5, title: "Selle café racer", desc: "Finition grise matelassée", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xr1tbd6y_3f71fae7-8f3a-4a33-9482-245c7abd23fb.jpeg" },
-  { id: 6, title: "Selle atelier", desc: "Finition noire surpiqûres blanches", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/dm4i0cr9_5a197c46-ec92-43e6-aabc-b85b190f3a72.jpeg" },
-  { id: 7, title: "Selle XSR 700", desc: "Matelassé losange passepoil rouge", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/5ue4fayp_640e8d16-28ac-4af9-b659-33ec2da70ed7.jpeg" },
-  { id: 8, title: "Selle Honda XL", desc: "Logo brodé personnalisé", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/pelx1f4o_117fd8e4-1117-4a50-9743-8978aeb3002a.jpeg" },
-  { id: 9, title: "Assise cuir noir", desc: "Finition lisse sur établi", category: "Automobile", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qwclrlqu_b1972168-c7c8-47f8-b965-9e74101116eb.jpeg" },
-  { id: 10, title: "Armature selle", desc: "Structure ressorts avant garnissage", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/fmfm2hei_66126ab0-5d22-4830-9d7b-fc36198c8925.jpeg" },
-  { id: 11, title: "Canapé cuir capitonné", desc: "Cuir gris design moderne", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/cjun3hwq_331946c3-7fd4-4fa8-84b2-afabf46544c3.jpeg" },
-  { id: 12, title: "Canapé modulaire", desc: "Tissu gris chiné", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/o2cna4ll_dfdd06b4-2bb1-46ba-9d1d-5b8f0240bb2a.jpeg" },
-  { id: 13, title: "Fauteuil club", desc: "Simili cuir noir", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/965aw8nd_c9fc077a-e22f-4f7f-96d3-4f5ec677f912.jpeg" },
-  { id: 14, title: "Chaises restaurées", desc: "Assises en simili cuir noir", category: "Mobilier", image: IMAGES.mobilier }
-];
-
-const materials = [];
-
-// Secteurs et normes
-const sectorsNorms = [
-  {
-    icon: Heart,
-    title: "Médical & Bien-être",
-    description: "Tissus antibactériens, antifongiques et résistants aux produits de désinfection"
-  },
-  {
-    icon: Building2,
-    title: "Espaces Publics",
-    description: "Normes non-feu M1/M2 pour cinémas, hôtels et restaurants"
-  },
-  {
-    icon: Dumbbell,
-    title: "Sport & Fitness",
-    description: "Haute résistance à l'abrasion et à la transpiration"
-  },
-  {
-    icon: Plane,
-    title: "Transport & Mobilité",
-    description: "Homologation automobile, aviation et ferroviaire"
-  },
-  {
-    icon: Anchor,
-    title: "Nautisme",
-    description: "Traitements anti-UV et résistance à la salinité"
-  }
+// Gallery data - Photos réelles avec traductions FR/EN
+const galleryItemsData = [
+  { id: 1, titleFr: "Sièges bicolores", titleEn: "Two-tone seats", descFr: "Sièges auto orange et noir sur-mesure", descEn: "Custom orange and black car seats", category: "Automobile", image: IMAGES.siegesOrange.url },
+  { id: 2, titleFr: "Intérieur voiture collection", titleEn: "Classic car interior", descFr: "Sièges cuir noir avec passepoil", descEn: "Black leather seats with piping", category: "Automobile", image: IMAGES.automobile.url },
+  { id: 3, titleFr: "Sièges sport", titleEn: "Sport seats", descFr: "Tissu technique surpiqûres blanches", descEn: "Technical fabric with white stitching", category: "Automobile", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xnpdtgc2_85df2709-64ae-4e70-a5a7-6651dd092afa.jpeg" },
+  { id: 4, titleFr: "Selle Triumph Thruxton", titleEn: "Triumph Thruxton seat", descFr: "Selle matelassée avec logo García", descEn: "Quilted seat with García logo", category: "Moto", image: IMAGES.moto.url },
+  { id: 5, titleFr: "Selle café racer", titleEn: "Café racer seat", descFr: "Finition grise matelassée", descEn: "Quilted grey finish", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/xr1tbd6y_3f71fae7-8f3a-4a33-9482-245c7abd23fb.jpeg" },
+  { id: 6, titleFr: "Selle atelier", titleEn: "Workshop seat", descFr: "Finition noire surpiqûres blanches", descEn: "Black finish with white stitching", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/dm4i0cr9_5a197c46-ec92-43e6-aabc-b85b190f3a72.jpeg" },
+  { id: 7, titleFr: "Selle XSR 700", titleEn: "XSR 700 seat", descFr: "Matelassé losange passepoil rouge", descEn: "Diamond quilted with red piping", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/5ue4fayp_640e8d16-28ac-4af9-b659-33ec2da70ed7.jpeg" },
+  { id: 8, titleFr: "Selle Honda XL", titleEn: "Honda XL seat", descFr: "Logo brodé personnalisé", descEn: "Custom embroidered logo", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/pelx1f4o_117fd8e4-1117-4a50-9743-8978aeb3002a.jpeg" },
+  { id: 9, titleFr: "Assise cuir noir", titleEn: "Black leather seat", descFr: "Finition lisse sur établi", descEn: "Smooth finish on workbench", category: "Automobile", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qwclrlqu_b1972168-c7c8-47f8-b965-9e74101116eb.jpeg" },
+  { id: 10, titleFr: "Armature selle", titleEn: "Seat frame", descFr: "Structure ressorts avant garnissage", descEn: "Spring structure before upholstery", category: "Moto", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/fmfm2hei_66126ab0-5d22-4830-9d7b-fc36198c8925.jpeg" },
+  { id: 11, titleFr: "Canapé cuir capitonné", titleEn: "Tufted leather sofa", descFr: "Cuir gris design moderne", descEn: "Grey leather modern design", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/cjun3hwq_331946c3-7fd4-4fa8-84b2-afabf46544c3.jpeg" },
+  { id: 12, titleFr: "Canapé modulaire", titleEn: "Modular sofa", descFr: "Tissu gris chiné", descEn: "Heathered grey fabric", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/o2cna4ll_dfdd06b4-2bb1-46ba-9d1d-5b8f0240bb2a.jpeg" },
+  { id: 13, titleFr: "Fauteuil club", titleEn: "Club armchair", descFr: "Simili cuir noir", descEn: "Black faux leather", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/965aw8nd_c9fc077a-e22f-4f7f-96d3-4f5ec677f912.jpeg" },
+  { id: 14, titleFr: "Chaises restaurées", titleEn: "Restored chairs", descFr: "Assises en simili cuir noir", descEn: "Black faux leather seats", category: "Mobilier", image: IMAGES.mobilier.url }
 ];
 
 // Navigation Component
@@ -442,7 +375,7 @@ const HeroSection = ({ scrollToSection }) => {
   <section id="accueil" className="relative min-h-screen flex items-center overflow-hidden" data-testid="hero-section">
     {/* Background Image */}
     <div className="absolute inset-0">
-      <img src={IMAGES.hero} alt="" className="w-full h-full object-cover" />
+      <img src={IMAGES.hero.url} alt={IMAGES.hero.alt} className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-dark/70" />
     </div>
     
@@ -488,7 +421,8 @@ const ServicesSection = () => {
       id: "automobile",
       title: t.services.automobile.title,
       description: t.services.automobile.desc,
-      image: IMAGES.automobile,
+      image: IMAGES.automobile.url,
+      imageAlt: IMAGES.automobile.alt,
       icon: Car,
       features: t.services.automobile.features
     },
@@ -496,7 +430,8 @@ const ServicesSection = () => {
       id: "moto",
       title: t.services.moto.title,
       description: t.services.moto.desc,
-      image: IMAGES.moto,
+      image: IMAGES.moto.url,
+      imageAlt: IMAGES.moto.alt,
       icon: Bike,
       features: t.services.moto.features
     },
@@ -504,7 +439,8 @@ const ServicesSection = () => {
       id: "nautisme",
       title: t.services.nautisme.title,
       description: t.services.nautisme.desc,
-      image: IMAGES.nautisme,
+      image: IMAGES.nautisme.url,
+      imageAlt: IMAGES.nautisme.alt,
       icon: Ship,
       features: t.services.nautisme.features
     },
@@ -512,7 +448,8 @@ const ServicesSection = () => {
       id: "mobilier",
       title: t.services.mobilier.title,
       description: t.services.mobilier.desc,
-      image: IMAGES.mobilier,
+      image: IMAGES.mobilier.url,
+      imageAlt: IMAGES.mobilier.alt,
       icon: Sofa,
       features: t.services.mobilier.features
     }
@@ -643,8 +580,8 @@ const EngagementSection = () => {
               className="relative overflow-hidden"
             >
               <img
-                src={IMAGES.artisanTravail}
-                alt={lang === 'fr' ? "L'artisan au travail" : "The craftsman at work"}
+                src={IMAGES.artisanTravail.url}
+                alt={IMAGES.artisanTravail.alt}
                 className="w-full h-72 object-cover"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-dark/80 backdrop-blur-sm p-4">
@@ -706,11 +643,24 @@ const EngagementSection = () => {
 
 // Gallery Section
 const GallerySection = () => {
-  const { t } = useLanguage();
-  const [filter, setFilter] = useState(t.gallery.all);
-  const categories = [t.gallery.all, "Automobile", "Moto", "Nautisme", "Mobilier"];
+  const { lang, t } = useLanguage();
+  const allLabel = t.gallery.all;
+  const [filter, setFilter] = useState(allLabel);
+  const categories = [allLabel, "Automobile", "Moto", "Nautisme", "Mobilier"];
 
-  const filteredItems = filter === t.gallery.all ? galleryItems : galleryItems.filter(item => item.category === filter);
+  // Reset filter when language changes
+  useEffect(() => {
+    setFilter(allLabel);
+  }, [allLabel]);
+
+  // Build gallery items with translations
+  const galleryItems = galleryItemsData.map(item => ({
+    ...item,
+    title: lang === 'fr' ? item.titleFr : item.titleEn,
+    desc: lang === 'fr' ? item.descFr : item.descEn
+  }));
+
+  const filteredItems = filter === allLabel ? galleryItems : galleryItems.filter(item => item.category === filter);
 
   return (
     <section id="galerie" className="py-24 bg-dark-lighter" data-testid="gallery-section">
