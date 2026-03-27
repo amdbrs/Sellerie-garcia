@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, createContext, useContext } from "react";
-import "@/App.css";
+import "./App.css";
 import axios from "axios";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Phone, Mail, ChevronDown, Menu, X, ArrowRight, Check, Car, Bike, Ship, Sofa, Scissors, Layers, User, Heart, Building2, Dumbbell, Plane, Anchor, MapPin, Instagram, Globe } from "lucide-react";
