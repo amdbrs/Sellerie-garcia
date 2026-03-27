@@ -15,7 +15,7 @@ const IMAGES = {
   hero: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg", alt: "Atelier Garcia sellerie Yzeure - vue d'ensemble" },
   atelier: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/mhes5mb7_1bb1be00-9a9c-409b-a3de-f9106431bc78.jpeg", alt: "Atelier Garcia sellerie Yzeure" },
   atelierLarge: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/qq7o0n5l_c54073aa-0c4a-4010-b537-cb187736a669.jpeg", alt: "Atelier Garcia sellerie garniture Yzeure Moulins" },
-  mobilier: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m977ytlo_beff6e02-660e-488a-864f-94ccc741d303.jpeg", alt: "Restauration chaises cuir noir Allier" },
+  mobilier: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/605pbkna_9536c389-9b10-4d20-93ed-ec901be33974.jpeg", alt: "Restauration canapé Chesterfield cuir capitonné Yzeure Moulins Allier" },
   vespa: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/ecmsqvii_8d951b09-7e1b-4270-a7ad-c28b525b627d.jpeg", alt: "Confection selle Vespa personnalisée Moulins" },
   motoSport: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m75tu18a_795c9272-3bc1-4bfe-8fce-d420776783c8.jpeg", alt: "Confection selle moto sport personnalisée Allier" },
   couture: { url: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/nvf1p6p8_c13492b3-b3ec-4389-82ac-e944a39d0699.jpeg", alt: "Couture cuir artisanale sellerie Garcia" },
@@ -252,7 +252,8 @@ const galleryItemsData = [
   { id: 11, titleFr: "Canapé cuir nettoyé", titleEn: "Cleaned leather sofa", descFr: "Nettoyage cuir gris design moderne", descEn: "Modern grey leather cleaning", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/cjun3hwq_331946c3-7fd4-4fa8-84b2-afabf46544c3.jpeg" },
   { id: 12, titleFr: "Canapé modulaire", titleEn: "Modular sofa", descFr: "Tissu gris chiné", descEn: "Heathered grey fabric", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/o2cna4ll_dfdd06b4-2bb1-46ba-9d1d-5b8f0240bb2a.jpeg" },
   { id: 13, titleFr: "Fauteuil club", titleEn: "Club armchair", descFr: "Simili cuir noir", descEn: "Black faux leather", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/965aw8nd_c9fc077a-e22f-4f7f-96d3-4f5ec677f912.jpeg" },
-  { id: 14, titleFr: "Chaises restaurées", titleEn: "Restored chairs", descFr: "Assises en simili cuir noir", descEn: "Black faux leather seats", category: "Mobilier", image: IMAGES.mobilier.url }
+  { id: 14, titleFr: "Chaises restaurées", titleEn: "Restored chairs", descFr: "Assises en simili cuir noir", descEn: "Black faux leather seats", category: "Mobilier", image: "https://customer-assets.emergentagent.com/job_brave-dhawan-3/artifacts/m977ytlo_beff6e02-660e-488a-864f-94ccc741d303.jpeg" },
+  { id: 15, titleFr: "Canapé Chesterfield", titleEn: "Chesterfield sofa", descFr: "Restauration cuir capitonné marron", descEn: "Brown tufted leather restoration", category: "Mobilier", image: IMAGES.mobilier.url }
 ];
 
 // Navigation Component
@@ -917,7 +918,7 @@ const ContactSection = () => {
 
 // Footer
 const Footer = () => {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   return (
   <footer className="bg-dark py-8 border-t border-light/10" data-testid="footer">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -926,7 +927,17 @@ const Footer = () => {
           <img src={LOGO_URL} alt="García Sellerie" className="h-10 w-10 rounded-full object-cover" />
           <p className="text-light font-semibold">García Sellerie Garniture</p>
         </div>
-        <p className="text-light/40 text-sm">© 2024 García Sellerie Garniture. {t.footer}</p>
+        <div className="flex flex-col items-center md:items-end gap-1">
+          <p className="text-light/40 text-sm">© 2024 García Sellerie Garniture. {t.footer}</p>
+          <a 
+            href="https://amdbrs.com/contact" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-light/30 text-xs hover:text-mint transition-colors"
+          >
+            {lang === 'fr' ? 'Site web designé et développé par' : 'Website designed and developed by'} Amaury De Barros
+          </a>
+        </div>
       </div>
     </div>
   </footer>
