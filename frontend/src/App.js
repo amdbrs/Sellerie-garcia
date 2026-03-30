@@ -947,7 +947,7 @@ const Footer = () => {
           <p className="text-light font-semibold">García Sellerie Garniture</p>
         </div>
         <div className="flex flex-col items-center md:items-end gap-1">
-          <p className="text-light/40 text-sm">© 2024 García Sellerie Garniture. {t.footer}</p>
+          <p className="text-light/40 text-sm">© 2025 García Sellerie Garniture. {t.footer}</p>
           <a 
             href="https://amdbrs.com/contact" 
             target="_blank" 

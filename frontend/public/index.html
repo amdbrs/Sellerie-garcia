@@ -10,21 +10,27 @@
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
         
         <!-- SEO Meta Tags -->
-        <title>Sellerie Garniture Garcia | Artisan Sellier à Yzeure (Moulins)</title>
-        <meta name="description" content="L'atelier Sellerie Garniture Garcia à Yzeure vous accueille pour la restauration de vos selleries auto, moto et ameublement. Travail artisanal de précision près de Moulins (03)." />
-        <meta name="keywords" content="sellerie, garniture, Garcia, Yzeure, Moulins, Allier, 03, artisan, sellier, restauration, siège auto, selle moto, ameublement, cuir" />
+        <title>Sellerie Garniture Garcia | Artisan Sellier à Yzeure près de Moulins (03) - Allier</title>
+        <meta name="description" content="Sellerie Garniture Garcia, artisan sellier garnisseur à Yzeure près de Moulins dans l'Allier (03). Restauration sièges auto, selles moto, mobilier. Travail sur-mesure en cuir et Alcantara. Devis gratuit." />
+        <meta name="keywords" content="sellerie Moulins, sellier Allier, garniture auto 03, sellerie moto Yzeure, restauration siège Moulins, artisan sellier Allier, tapissier Moulins, sellerie automobile Allier, selle moto sur-mesure 03, réfection siège auto Moulins, garnisseur Yzeure, sellerie cuir Allier, Alcantara Moulins, sellerie nautique 03, restauration mobilier Allier, sellier garnisseur Moulins, atelier sellerie Yzeure, sellerie Vichy, sellerie Montluçon, sellerie Auvergne" />
         <meta name="author" content="Sellerie Garniture Garcia" />
         <meta name="robots" content="index, follow" />
         
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Sellerie Garniture Garcia | Artisan Sellier à Yzeure (Moulins)" />
-        <meta property="og:description" content="L'atelier Sellerie Garniture Garcia à Yzeure vous accueille pour la restauration de vos selleries auto, moto et ameublement. Travail artisanal de précision près de Moulins (03)." />
+        <meta property="og:title" content="Sellerie Garniture Garcia | Artisan Sellier Moulins - Allier (03)" />
+        <meta property="og:description" content="Artisan sellier garnisseur à Yzeure près de Moulins. Restauration sellerie auto, moto et mobilier dans l'Allier. Travail sur-mesure, devis gratuit." />
         <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Sellerie Garniture Garcia" />
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sellerie Garniture Garcia | Artisan Sellier Moulins (03)" />
+        <meta name="twitter:description" content="Artisan sellier garnisseur à Yzeure près de Moulins. Restauration sellerie auto, moto et mobilier dans l'Allier." />
         
         <!-- Geo Tags for Local SEO -->
         <meta name="geo.region" content="FR-03" />
-        <meta name="geo.placename" content="Yzeure" />
+        <meta name="geo.placename" content="Yzeure, Moulins, Allier" />
         <meta name="geo.position" content="46.5667;3.35" />
         <meta name="ICBM" content="46.5667, 3.35" />
         
@@ -35,7 +41,8 @@
             "@type": "LocalBusiness",
             "@id": "https://sellerie-garcia.fr",
             "name": "Sellerie Garniture Garcia",
-            "description": "Atelier artisanal de sellerie et garniture pour automobile, moto et ameublement à Yzeure près de Moulins (03). Accueil sur rendez-vous.",
+            "alternateName": ["Sellerie Garcia Moulins", "Sellier Allier", "Garnisseur Yzeure"],
+            "description": "Artisan sellier garnisseur spécialisé dans la restauration et création de selleries automobile, moto et mobilier. Atelier situé à Yzeure près de Moulins dans l'Allier (03). Travail sur-mesure en cuir, Alcantara et tissus techniques. Intervention dans tout le département de l'Allier : Moulins, Vichy, Montluçon et environs.",
             "url": "https://sellerie-garcia.fr",
             "telephone": "+33643320178",
             "email": "selleriegarniture.garcia@gmail.com",
@@ -67,35 +74,130 @@
             "areaServed": [
                 {
                     "@type": "City",
-                    "name": "Yzeure"
+                    "name": "Yzeure",
+                    "containedInPlace": {
+                        "@type": "AdministrativeArea",
+                        "name": "Allier"
+                    }
                 },
                 {
                     "@type": "City", 
-                    "name": "Moulins"
+                    "name": "Moulins",
+                    "containedInPlace": {
+                        "@type": "AdministrativeArea",
+                        "name": "Allier"
+                    }
+                },
+                {
+                    "@type": "City",
+                    "name": "Vichy"
+                },
+                {
+                    "@type": "City",
+                    "name": "Montluçon"
+                },
+                {
+                    "@type": "City",
+                    "name": "Cusset"
+                },
+                {
+                    "@type": "City",
+                    "name": "Dompierre-sur-Besbre"
+                },
+                {
+                    "@type": "City",
+                    "name": "Avermes"
                 },
                 {
                     "@type": "AdministrativeArea",
-                    "name": "Allier"
+                    "name": "Allier (03)"
+                },
+                {
+                    "@type": "AdministrativeArea",
+                    "name": "Auvergne-Rhône-Alpes"
                 }
             ],
-            "serviceType": [
-                "Restauration sellerie automobile",
-                "Confection selle moto personnalisée",
-                "Réfection ameublement",
-                "Sellerie nautique"
-            ],
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Services de sellerie",
+                "itemListElement": [
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Sellerie automobile",
+                            "description": "Réfection sièges auto, ciels de toit, panneaux de portes à Moulins et dans l'Allier"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Sellerie moto",
+                            "description": "Selles moto sur-mesure, pose gel, personnalisation près de Moulins (03)"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Sellerie nautique",
+                            "description": "Bains de soleil, coussins, tauds de protection dans l'Allier"
+                        }
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "Restauration mobilier",
+                            "description": "Fauteuils, canapés, chaises - restauration et création à Yzeure"
+                        }
+                    }
+                ]
+            },
             "knowsAbout": [
-                "Sellerie automobile",
-                "Sellerie moto",
-                "Garnissage mobilier",
-                "Travail du cuir",
-                "Alcantara"
+                "Sellerie automobile Moulins",
+                "Sellerie moto Allier",
+                "Garnissage mobilier 03",
+                "Travail du cuir Yzeure",
+                "Alcantara",
+                "Restauration sièges Vichy",
+                "Tapissier garnisseur Allier"
             ],
-            "additionalProperty": {
-                "@type": "PropertyValue",
-                "name": "Accueil",
-                "value": "Sur rendez-vous"
-            }
+            "slogan": "Artisan sellier garnisseur à Yzeure près de Moulins - Allier (03)",
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "Accueil",
+                    "value": "Sur rendez-vous"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "Zone d'intervention",
+                    "value": "Moulins, Yzeure, Vichy, Montluçon, Allier (03)"
+                }
+            ]
+        }
+        </script>
+        
+        <!-- Additional Local Business Schema for Services -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "name": "Sellerie Garniture Garcia - Artisan Sellier Moulins Allier",
+            "description": "Sellier garnisseur professionnel intervenant à Moulins, Yzeure, Vichy et dans tout l'Allier (03) pour vos projets de sellerie auto, moto et mobilier.",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "21 bis rue du 8 mai",
+                "addressLocality": "Yzeure",
+                "postalCode": "03400",
+                "addressRegion": "Allier",
+                "addressCountry": "FR"
+            },
+            "telephone": "+33643320178",
+            "priceRange": "€€",
+            "serviceType": ["Sellerie automobile", "Sellerie moto", "Sellerie nautique", "Restauration mobilier", "Tapisserie d'ameublement"]
         }
         </script>
         
