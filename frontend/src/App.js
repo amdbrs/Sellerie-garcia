@@ -252,6 +252,46 @@ const galleryItemsData = [
   { id: 15, titleFr: "Canapé Chesterfield", titleEn: "Chesterfield sofa", descFr: "Restauration cuir capitonné marron", descEn: "Brown tufted leather restoration", category: "Mobilier", image: IMAGES.mobilier.url }
 ];
 
+// FAQ Data
+const faqData = [
+  {
+    questionFr: "Quel sellier-garnisseur choisir à Moulins et Yzeure ?",
+    questionEn: "Which upholsterer to choose in Moulins and Yzeure?",
+    answerFr: "La Sellerie Garcia, située au 21 bis rue du 8 mai à Yzeure, est spécialisée dans la réfection et la création sur-mesure. Diplômé d'un CAP Sellier-Garnisseur et installé depuis février 2025, je mets mon savoir-faire artisanal au service des particuliers et professionnels de l'Allier (03) pour restaurer cuirs, tissus et mousses.",
+    answerEn: "Sellerie Garcia, located at 21 bis rue du 8 mai in Yzeure, specializes in restoration and custom creation. With a CAP Sellier-Garnisseur diploma and established since February 2025, I put my artisanal expertise at the service of individuals and professionals in Allier (03) to restore leather, fabrics and foam."
+  },
+  {
+    questionFr: "Proposez-vous la rénovation de sièges auto à Moulins ?",
+    questionEn: "Do you offer car seat renovation in Moulins?",
+    answerFr: "Oui, la sellerie automobile est l'un de mes cœurs de métier. Je réalise la restauration complète d'intérieurs de voitures anciennes et modernes : réfection de sièges auto (cuir, tissu, similicuir), remplacement de ciels de toit qui se décollent, réparation de panneaux de porte et moquettes. C'est la solution idéale pour redonner de la valeur à un véhicule de collection dans l'Allier.",
+    answerEn: "Yes, automotive upholstery is one of my core specialties. I perform complete restoration of vintage and modern car interiors: car seat restoration (leather, fabric, faux leather), replacement of peeling headliners, door panel and carpet repairs. It's the ideal solution to restore value to a collector's vehicle in Allier."
+  },
+  {
+    questionFr: "Où faire personnaliser ou rembourrer une selle de moto dans le 03 ?",
+    questionEn: "Where to customize or reupholster a motorcycle seat in the 03 area?",
+    answerFr: "Si vous cherchez un sellier moto proche de Moulins, je propose des solutions de confort et d'esthétique. Je réalise le passage en selle confort (mousse haute résilience), le rabaissement ou le rehaussement d'assise, ainsi que la personnalisation du revêtement avec des surpiqûres colorées.",
+    answerEn: "If you're looking for a motorcycle upholsterer near Moulins, I offer comfort and aesthetic solutions. I provide comfort seat upgrades (high resilience foam), seat lowering or raising, as well as cover customization with colored stitching."
+  },
+  {
+    questionFr: "Réalisez-vous la sellerie de bateau (nautisme) à Yzeure ?",
+    questionEn: "Do you do boat upholstery (marine) in Yzeure?",
+    answerFr: "Absolument, de nombreux clients nous confient leur sellerie marine. Je confectionne des bains de soleil, des sièges pilote et des housses de protection avec des matériaux techniques résistants aux UV et à la moisissure, essentiels pour naviguer sur l'Allier ou les plans d'eau de la région.",
+    answerEn: "Absolutely, many clients entrust us with their marine upholstery. I make sunbeds, pilot seats and protective covers with technical materials resistant to UV and mildew, essential for sailing on the Allier or regional waterways."
+  },
+  {
+    questionFr: "Peut-on faire restaurer des fauteuils et du mobilier à l'atelier ?",
+    questionEn: "Can armchairs and furniture be restored at the workshop?",
+    answerFr: "Oui, la sellerie d'ameublement permet de redonner vie à vos fauteuils Voltaire, chaises de salle à manger ou canapés. Je travaille aussi avec les professionnels (restaurants, cabinets médicaux, salles de sport) pour la réfection de banquettes et tables d'examen à Moulins et ses environs.",
+    answerEn: "Yes, furniture upholstery allows you to bring your Voltaire armchairs, dining chairs or sofas back to life. I also work with professionals (restaurants, medical offices, gyms) for bench and examination table restoration in Moulins and surrounding areas."
+  },
+  {
+    questionFr: "Comment obtenir un devis gratuit pour un garnissage dans l'Allier ?",
+    questionEn: "How to get a free quote for upholstery in Allier?",
+    answerFr: "Pour obtenir un tarif précis, vous pouvez : passer à l'atelier au 21 bis rue du 8 mai, 03400 Yzeure, appeler le 06 43 32 01 78, ou envoyer des photos de votre projet par email ou via nos réseaux sociaux. L'étude de votre projet et le devis sont gratuits et personnalisés selon les matériaux choisis et le temps de travail.",
+    answerEn: "To get an accurate quote, you can: visit the workshop at 21 bis rue du 8 mai, 03400 Yzeure, call 06 43 32 01 78, or send photos of your project by email or via our social networks. Project assessment and quotes are free and customized based on chosen materials and work time."
+  }
+];
+
 // Navigation Component
 const Navigation = ({ activeSection, scrollToSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -935,6 +975,72 @@ const ContactSection = () => {
   );
 };
 
+// FAQ Section
+const FAQSection = () => {
+  const { lang } = useLanguage();
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section id="faq" className="py-16 md:py-24 bg-dark-lighter" data-testid="faq-section">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection>
+          <motion.div variants={fadeUp} className="text-center mb-12">
+            <Badge>{lang === 'fr' ? 'Questions fréquentes' : 'FAQ'}</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-light mt-4">
+              {lang === 'fr' ? 'FAQ Sellerie Garcia' : 'Sellerie Garcia FAQ'}
+            </h2>
+            <p className="text-mint mt-2 text-lg">
+              {lang === 'fr' ? 'Votre artisan sellier à Yzeure / Moulins (03)' : 'Your upholsterer in Yzeure / Moulins (03)'}
+            </p>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="space-y-4">
+            {faqData.map((faq, index) => (
+              <div 
+                key={index}
+                className="border border-light/10 bg-dark overflow-hidden"
+                data-testid={`faq-item-${index}`}
+              >
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-light/5 transition-colors"
+                  data-testid={`faq-toggle-${index}`}
+                >
+                  <span className="text-light font-medium pr-4">
+                    {lang === 'fr' ? faq.questionFr : faq.questionEn}
+                  </span>
+                  <ChevronDown 
+                    className={`w-5 h-5 text-mint flex-shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-5 text-light/70 leading-relaxed border-t border-light/10 pt-4">
+                        {lang === 'fr' ? faq.answerFr : faq.answerEn}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </motion.div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+};
+
 // Footer
 const Footer = () => {
   const { lang, t } = useLanguage();
@@ -1007,6 +1113,7 @@ function App() {
         <EngagementSection />
         <GallerySection />
         <ContactSection />
+        <FAQSection />
         <Footer />
       </div>
     </LanguageContext.Provider>
