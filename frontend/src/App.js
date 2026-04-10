@@ -1047,18 +1047,18 @@ const Footer = () => {
   return (
   <footer className="bg-dark py-8 border-t border-light/10" data-testid="footer">
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <div className="flex flex-col md:flex-row items-center gap-4">
           <img src={LOGO_URL} alt="García Sellerie" className="h-10 w-10 rounded-full object-cover" />
           <p className="text-light font-semibold">García Sellerie Garniture</p>
         </div>
         <div className="flex flex-col items-center md:items-end gap-1">
-          <p className="text-light/40 text-sm">© 2025 García Sellerie Garniture. {t.footer}</p>
+          <p className="text-light/40 text-sm text-center md:text-right">© 2025 García Sellerie Garniture. {t.footer}</p>
           <a 
             href="https://amdbrs.com/contact" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-light/30 text-xs hover:text-mint transition-colors"
+            className="text-light/30 text-xs hover:text-mint transition-colors text-center md:text-right"
           >
             {lang === 'fr' ? 'Site web designé et développé par' : 'Website designed and developed by'} Amaury De Barros
           </a>
